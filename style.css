@@ -103,7 +103,12 @@ select
 	text-align:right;
 }
 
-#tabs-3
+#leto {
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
+#glavna_tabcontent
 {
 	margin-top:10px;
 	margin-bottom:10px;
@@ -121,8 +126,8 @@ label
 
 hr
 {
-	margin-left:15px;
-	margin-right:15px;
+	margin-left:0px;
+	margin-right:0px;
 }
 
 #spol
@@ -238,4 +243,30 @@ input:focus
 {
 	background: #4667a8;
 	text-decoration: none;
+}
+
+.btn3 
+{
+	-webkit-border-radius: 25;
+	-moz-border-radius: 25;
+	border-radius: 25px;
+	font-family: comforta;
+	color: #ffffff;
+	font-size: 30px;
+	background: #3b5998;
+	padding-left: 15px;
+	padding-right: 15px;
+	border: solid #3b5998 1px;
+	text-decoration: none;
+	text-align:center;
+	width:50x; 
+	height:50px;
+	margin-top: 5px;
+	margin-left: 5px;
+}
+
+#znamka_podatki td {
+	padding-left: 50px;
+	padding-right: 50px;
+	padding-bottom: 50px;
 }
