@@ -24,6 +24,7 @@
 			<li id="registracija_tab" onclick="prikazi(this)" style="float:right"><a href="#registracija">Registracija</a></li>
 			<li id="glavna_tab" onclick="prikazi(this)" style="float:right"><a href="#home">Glavna stran</a></li>
 			<li id="uporabnik_tab" onclick="prikazi(this)" style="float:right"><a href="#home">Moj profil</a></li>
+			<li id="novaznamka_tab" onclick="prikazi(this)" style="float:right"><a href="#home">Nova znamka</a></li>
 		</ul>
 	</div>
 
@@ -91,6 +92,29 @@
 	
 	<!--uporabnikov profil-->
 	<div id="uporabnik_tabcontent" class="tabContent">
+	</div>
+	
+	<!--dodajanje novih znamk-->
+	<div id="novaznamka_tabcontent" class="tabContent">
+		<div style="box-shadow: -5px 5px 5px -5px #333, 5px 5px 5px -5px #333;border-radius: 5px;margin-bottom:70px; margin-top:70px; width:800px; height:660px; background-color: #333;">
+			<h1>Dodaj novo znamko</h1>
+			<input type="text" placeholder="Naslov*" style="font-family: comforta;margin-left:50px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" id='naslov_znamke'/>
+			<input type="text" placeholder="Leto*" style="font-family: comforta;margin-top:25px;margin-left:50px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" id='leto_znamke'/>
+			<input type="text" placeholder="Datum izdaje* npr. 30.12.2003" style="font-family: comforta;margin-top:25px;margin-left:50px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" id='datum_znamke'/>
+			<input type="text" placeholder="Povezava do slike*" style="font-family: comforta;margin-top:25px;margin-left:50px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" id='slika_znamke'/> 
+			<input type="text" placeholder="Oblikovanje" style="font-family: comforta;margin-top:25px;margin-left:50px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" id='oblikovanje_znamke'/>
+			<input type="text" placeholder="Motiv" style="font-family: comforta;margin-top:25px;margin-left:50px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" id='motiv_znamke'/>
+			<input type="text" placeholder="Tisk" style="font-family: comforta;margin-top:25px;margin-left:50px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" id='tisk_znamke'/>
+			<input type="text" placeholder="Izvedba" style="font-family: comforta;margin-top:25px;margin-left:50px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" id='izvedba_znamke'/>
+			<input type="text" placeholder="Pola" style="font-family: comforta;margin-top:25px;margin-left:50px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" id='pola_znamke'/> 
+			<input type="text" placeholder="Papir" style="font-family: comforta;margin-top:25px;margin-left:50px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" id='papir_znamke'/>
+			<input type="text" placeholder="Velikost" style="font-family: comforta;margin-top:25px;margin-left:50px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" id='velikost_znamke'/>
+			<input type="text" placeholder="Zobci" style="font-family: comforta;margin-top:25px;margin-left:50px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" id='zobci_znamke'/> 
+			<input type="text" placeholder="Zobčanje" style="font-family: comforta;margin-top:25px;margin-left:50px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" id='zobcanje_znamke'/>  
+			<input type="text" placeholder="Opomba" style="font-family: comforta;margin-top:25px;margin-left:50px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" id='opomba_znamke'/>   
+			 
+			<button type="button" class="btn" id='vstavi_znamko_btn'>VSTAVI</button>
+		</div> 
 	</div>
 
 </div>

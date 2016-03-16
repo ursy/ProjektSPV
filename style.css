@@ -195,6 +195,11 @@ input:focus
 	text-decoration: none;
 }
 
+.btn#vstavi_znamko_btn
+{
+	margin-left: 240px;
+}
+
 .btn1 
 {
 	-webkit-border-radius: 60;

@@ -1,6 +1,36 @@
 <?php
 include_once 'connToDatabase.php';
 
+//vstavljanje nove znamke
+if ($_POST['method'] == "vstavi_znamko")
+{
+	$naslov = $_POST['naslov'];
+	
+	$time = strtotime($_POST['datum']);
+	$newformat = date('Y-m-d',$time);
+	$datum = $newformat;
+	echo $datum;
+	
+	$leto = $_POST['leto'];
+	$slika = $_POST['slika'];
+	$oblikovanje = $_POST['oblikovanje'];
+	$motiv = $_POST['motiv'];
+	$tisk = $_POST['tisk'];
+	$izvedba = $_POST['izvedba'];
+	$pola = $_POST['pola'];
+	$papir = $_POST['papir'];
+	$velikost = $_POST['velikost'];
+	$zobci = $_POST['zobci'];
+	$zobcanje = $_POST['zobcanje'];
+	$opomba = $_POST['opomba'];
+	$query = "INSERT INTO Znamka (naslov, leto, datum_izdaje, slika, oblikovanje, motiv, tisk, izvedba, pola, papir, velikost, zobci, zobcanje, opomba) VALUES ('$naslov', '$leto', '$datum', '$slika', '$oblikovanje', '$motiv', '$tisk', '$izvedba', '$pola', '$papir', '$velikost', '$zobci', '$zobcanje', '$opomba')";
+	if (mysqli_query($conn, $query)) {
+        echo "OK";
+    } else {
+        echo "Error";
+    }
+}
+
 //prikaz vseh znamk za vsako leto
 if ($_POST['method'] == "prikaz_znamke")
 {

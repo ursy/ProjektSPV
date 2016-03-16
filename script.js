@@ -39,6 +39,46 @@ $(document).on("mousedown", "#backButton", function() {
 	$('#glavna_tabcontent').show();
 });
 
+//vstavi novo znamko clicked
+$(document).on("mousedown", "#vstavi_znamko_btn", function() {
+	if ($("input#slika_znamke").val() != "" && $("input#naslov_znamke").val() != "" && $("input#datum_znamke").val() != "" && $("input#leto_znamke").val() != "") {
+		$.ajax({
+		    url: "podatki_baza.php",
+		    type: "POST",
+		    data: 
+			{
+				naslov: $("input#naslov_znamke").val(),
+				datum: $("input#datum_znamke").val(),
+				leto: parseInt($("input#leto_znamke").val(),10),
+				oblikovanje: $("input#oblikovanje_znamke").val(),
+				motiv: $("input#motiv_znamke").val(),
+				tisk: $("input#tisk_znamke").val(),
+				izvedba: $("input#izvedba_znamke").val(),
+				pola: $("input#pola_znamke").val(),
+				papir: $("input#papir_znamke").val(),
+				velikost: $("input#velikost_znamke").val(),
+				zobci: $("input#zobci_znamke").val(),
+				zobcanje: $("input#zobcanje_znamke").val(),
+				opomba: $("input#opomba_znamke").val(),
+				slika: $("input#slika_znamke").val(),
+				method: "vstavi_znamko"
+			},
+		    cache: false,
+		    success: function(data) 
+			{
+				location.reload();
+		    },
+		    error: function(data) 
+			{
+				alert(data);
+		    }
+		});  
+	}
+	else {
+		alert("Izpolnite obvezna polja!");
+	}
+});
+
 //prikaz vseh znamk za izbrano leto
 function get_znamke(leto) {
 	$("#znamka").html("");
