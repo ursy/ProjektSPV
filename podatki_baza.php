@@ -31,6 +31,103 @@ if ($_POST['method'] == "vstavi_znamko")
     }
 }
 
+//oznaci znamko z imam, nimam, odvec
+if ($_POST['method'] == "oznaci_znamko")
+{
+	$oznacba = $_POST["oznacba"];
+	$id_upor = $_POST["uporabnik"];
+	$id_znamka = $_POST["znamka"];
+	
+	$imam = 0;
+	$nimam = 0;
+	$odvec = 0;
+	
+	if ($oznacba == "imam") {
+		$imam = 1;
+	}
+	else if ($oznacba == "nimam") {
+		$nimam = 1;
+	}
+	else if ($oznacba == "odvec") {
+		$odvec = 1;
+	}
+
+	$query = "SELECT * FROM znamka_uporabnik WHERE ID_znamka = '$id_znamka' AND ID_uporabnik = '$id_upor'";
+	$result = mysqli_query($conn, $query);
+
+	if (mysqli_num_rows($result) > 0) {
+		$row = mysqli_fetch_assoc($result);
+		
+		if ($oznacba == "imam") {
+			if ($row['ima'] == 0) {
+				$imam = 1;
+				$nimam = 0;
+			}
+			else {
+				$imam = 0;
+				$nimam = 1;
+			}
+			$odvec = $row['odvec'];
+			$q1 = "UPDATE znamka_uporabnik SET ima = '$imam', nima = '$nimam' WHERE ID_znamka = '$id_znamka' AND ID_uporabnik = '$id_upor'";
+		}
+		else if ($oznacba == "nimam") {
+			if ($row['nima'] == 0) {
+				$imam = 0;
+				$nimam = 1;
+			}
+			else {
+				$imam = 1;
+				$nimam = 0;
+			}
+			$odvec = $row['odvec'];
+        	$q1 = "UPDATE znamka_uporabnik SET ima = '$imam', nima = '$nimam' WHERE ID_znamka = '$id_znamka' AND ID_uporabnik = '$id_upor'";
+		}
+		else if ($oznacba == "odvec"){
+			if ($row['odvec'] == 0) {
+				$odvec = 1;
+			}
+			else {
+				$odvec = 0;
+			}
+			$imam = $row['ima'];
+			$nimam = $row['nima'];
+			$q1 = "UPDATE znamka_uporabnik SET odvec = '$odvec' WHERE ID_znamka = '$id_znamka' AND ID_uporabnik = '$id_upor'";
+		}
+        if (mysqli_query($conn, $q1)) {
+            echo("$imam-$nimam-$odvec");
+        } else {
+            echo "update Error'$imam', '$nimam', '$odvec'";
+        }
+    }
+    else 
+    {
+        $q1 = "INSERT INTO znamka_uporabnik (ID_uporabnik, ID_znamka, ima, nima, odvec) VALUES ('$id_upor', '$id_znamka', '$imam', '$nimam', '$odvec')";
+        if (mysqli_query($conn, $q1)) {
+            echo("$imam-$nimam-$odvec");
+        } else {
+            echo "insert Error '$imam', '$nimam', '$odvec'";
+        }
+    }
+}
+
+//prikaz oznacb znamke za uporabnika
+if ($_POST['method'] == "get_znamka_user")
+{
+	$id_upor = $_POST["id_user"];
+	$id_znamka = $_POST["id_znamka"];
+	
+	$query = "SELECT * FROM znamka_uporabnik WHERE ID_znamka = '$id_znamka' AND ID_uporabnik = '$id_upor'";
+	$result = mysqli_query($conn, $query);
+
+	if (mysqli_num_rows($result) > 0) {
+		$row = mysqli_fetch_assoc($result);
+		$ima = $row['ima'];
+		$nima = $row['nima'];
+		$odvec = $row['odvec'];
+		echo("$ima-$nima-$odvec");
+	}
+}
+
 //prikaz vseh znamk za vsako leto
 if ($_POST['method'] == "prikaz_znamke")
 {
@@ -74,7 +171,7 @@ if ($_POST['method'] == "z_podatki")
 	
 	$result = mysqli_query($conn, $q);
 	
-	echo "<tr>";
+	echo "<tr id='$id' class='podatki'>";
 	
 	while ($row = mysqli_fetch_assoc($result))
 	{

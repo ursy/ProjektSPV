@@ -29,6 +29,7 @@ $(document).ready(function() {
 $(document).on("mousedown", "td.znamke_prikaz", function() {
 	var id = $(this).attr("ID");
 	znamka_podatki(id, "");
+	get_znamka_user (id, 1); //PRAVI USER ID 
 });
 
 //back button clicked
@@ -37,6 +38,24 @@ $(document).on("mousedown", "#backButton", function() {
 	$('#leto_znamke').show();
 	$('#znamka_profil').hide();
 	$('#glavna_tabcontent').show();
+});
+
+//imam znamko clicked
+$(document).on("mousedown", "#imamZ_btn", function() {
+	var id_znamke = $("tr.podatki").attr("id");
+	oznaci_znamka_user (id_znamke, 1, "imam"); //PRAVI USER ID 
+});
+
+//nimam znamke clicked
+$(document).on("mousedown", "#nimamZ_btn", function() {
+	var id_znamke = $("tr.podatki").attr("id");
+	oznaci_znamka_user (id_znamke, 1, "nimam"); //PRAVI USER ID
+});
+
+//odvec znamka clicked
+$(document).on("mousedown", "#odvecZ_btn", function() {
+	var id_znamke = $("tr.podatki").attr("id");
+	oznaci_znamka_user (id_znamke, 1, "odvec"); //PRAVI USER ID
 });
 
 //vstavi novo znamko clicked
@@ -125,4 +144,87 @@ function znamka_podatki (id, naslov) {
 	$('#leto_znamke').hide();
 	$('#glavna_tabcontent').hide();
 	$('#znamka_profil').show();
+}
+
+function get_znamka_user (id_znamka, id_user) {
+	$.ajax({
+		type: "POST",
+		url: "podatki_baza.php",
+		data: 
+		{
+			id_user: id_user,
+			id_znamka: id_znamka,
+			method: "get_znamka_user"
+		},
+		cache: false,
+		success: function (result) 
+		{
+            var values=result.split('-');
+			var ima=values[0];
+			var nima=values[1];
+			var odvec=values[2];
+			
+			if (ima == 1) {
+				$("#imamZ_btn").text("imam");
+				$("#nimamZ_btn").text("--");
+			}
+			else {
+				$("#imamZ_btn").text("--");
+				$("#nimamZ_btn").text("nimam");
+			}
+			
+			if (odvec == 1) {
+				$("#odvecZ_btn").text("odvec");
+			}
+			else {
+				$("#odvecZ_btn").text("--");
+			}
+		},
+		error: function (result) 
+		{
+			alert(result);
+		}
+	});
+}
+
+function oznaci_znamka_user (id_znamka, id_user, oznacba) {
+	$.ajax({
+		url: "podatki_baza.php",
+		type: "POST",
+		data: 
+		{
+			uporabnik: id_user, 
+			znamka: id_znamka,
+			oznacba: oznacba,
+			method: "oznaci_znamko"
+		},
+		cache: false,
+		success: function(result) 
+		{
+			var values=result.split('-');
+			var ima=values[0];
+			var nima=values[1];
+			var odvec=values[2];
+			
+			if (ima == 1) {
+				$("#imamZ_btn").text("imam");
+				$("#nimamZ_btn").text("--");
+			}
+			else {
+				$("#imamZ_btn").text("--");
+				$("#nimamZ_btn").text("nimam");
+			}
+			
+			if (odvec == 1) {
+				$("#odvecZ_btn").text("odvec");
+			}
+			else {
+				$("#odvecZ_btn").text("--");
+			}
+		},
+		error: function(data) 
+		{
+			alert(data);
+		}
+	});
 }
