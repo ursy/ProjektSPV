@@ -269,8 +269,6 @@ input:focus
 	margin-top: 5px;
 	margin-left: 5px;
 }
-
-<<<<<<< HEAD
 .ponudi{
     -webkit-border-radius: 25;
 	-moz-border-radius: 25;
@@ -295,18 +293,16 @@ input:focus
     margin-left: 140px;
 }
 
-=======
+
 .facebook-button{
     margin-top: 20px;
     margin-left: 140px;
 }
 
->>>>>>> origin/master
 #znamka_podatki td {
 	padding-left: 50px;
 	padding-right: 50px;
 	padding-bottom: 50px;
-<<<<<<< HEAD
 }
 
 #odvec td {
@@ -320,8 +316,7 @@ input:focus
 	padding-left: 50px;
 	padding-right: 50px;
 	padding-bottom: 50px;
-}
-=======
+
 }
 
 #user_podatki td {
@@ -330,4 +325,3 @@ input:focus
 	padding-right: 50px;
 	padding-bottom: 50px;
 }
->>>>>>> origin/master

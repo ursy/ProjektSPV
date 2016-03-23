@@ -13,12 +13,10 @@ function prikazi(elementi) {
 	    get_znamke($('select').val());
     }
     else if (elementi.id == "uporabnik_tab") {
-<<<<<<< HEAD
 	   	get_user(userID);
-=======
+
 	    $("#editProfileButton").hide();
-	   	get_user(userID); // PRAVI USER ID IZ SESSIONA
->>>>>>> origin/master
+	   	get_user(userID);
     }
 }
 

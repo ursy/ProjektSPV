@@ -7,12 +7,12 @@ include_once 'connToDatabase.php';
 if ($_POST['method'] == "vstavi_znamko")
 {
 	$naslov = $_POST['naslov'];
-	
+
 	$time = strtotime($_POST['datum']);
 	$newformat = date('Y-m-d',$time);
 	$datum = $newformat;
 	echo $datum;
-	
+
 	$leto = $_POST['leto'];
 	$slika = $_POST['slika'];
 	$oblikovanje = $_POST['oblikovanje'];
@@ -39,11 +39,11 @@ if ($_POST['method'] == "oznaci_znamko")
 	$oznacba = $_POST["oznacba"];
 	$id_upor = $_POST["uporabnik"];
 	$id_znamka = $_POST["znamka"];
-	
+
 	$imam = 0;
 	$nimam = 0;
 	$odvec = 0;
-	
+
 	if ($oznacba == "imam") {
 		$imam = 1;
 	}
@@ -59,7 +59,7 @@ if ($_POST['method'] == "oznaci_znamko")
 
 	if (mysqli_num_rows($result) > 0) {
 		$row = mysqli_fetch_assoc($result);
-		
+
 		if ($oznacba == "imam") {
 			if ($row['ima'] == 0) {
 				$imam = 1;
@@ -101,7 +101,7 @@ if ($_POST['method'] == "oznaci_znamko")
             echo "update Error'$imam', '$nimam', '$odvec'";
         }
     }
-    else 
+    else
     {
         $q1 = "INSERT INTO znamka_uporabnik (ID_uporabnik, ID_znamka, ima, nima, odvec) VALUES ('$id_upor', '$id_znamka', '$imam', '$nimam', '$odvec')";
         if (mysqli_query($conn, $q1)) {
@@ -117,7 +117,7 @@ if ($_POST['method'] == "get_znamka_user")
 {
 	$id_upor = $_POST["id_user"];
 	$id_znamka = $_POST["id_znamka"];
-	
+
 	$query = "SELECT * FROM znamka_uporabnik WHERE ID_znamka = '$id_znamka' AND ID_uporabnik = '$id_upor'";
 	$result = mysqli_query($conn, $query);
 
@@ -137,7 +137,7 @@ if ($_POST['method'] == "prikaz_znamke")
 	$query = "SELECT ID_znamke, slika, naslov, datum_izdaje FROM Znamka WHERE leto = $id1" ;
 	$result = mysqli_query($conn, $query);
 
-	$i = 0; 
+	$i = 0;
 	while ($row = mysqli_fetch_assoc($result))
 	{
 		if($i == 0) {
@@ -148,15 +148,15 @@ if ($_POST['method'] == "prikaz_znamke")
 		<td class='znamke_prikaz' ID='" . $row["ID_znamke"] . "' style='background-color: #FBFBFB;'><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row["naslov"] . "</span><br><br><br><br>
 		<span style='font-family:comforta;font-size:14px;color: #A58600;'>".$row["datum_izdaje"]."</span>
 		</td>";
-				
+
 		if(++$i == 2) {
 			echo "</tr>";
 			$i = 0;
-		}	
+		}
 	}
-			
+
 	if($i % 2 > 0) {
-		echo "</tr>"; 
+		echo "</tr>";
 	}
 }
 
@@ -165,19 +165,19 @@ if ($_POST['method'] == "z_podatki")
 {
 	$naslov = $_POST['ime_znamka'];
     $id =  $_POST['znamka_id'];
-        
+
 	if ($id != "-")
         $q = "SELECT slika, naslov, datum_izdaje, oblikovanje, motiv, tisk, izvedba, pola, papir, velikost, zobci, zobcanje, opomba FROM Znamka WHERE ID_znamke = '$id'";
-    else 
+    else
 		$q = "SELECT slika, naslov, datum_izdaje, oblikovanje, motiv, tisk, izvedba, pola, papir, velikost, zobci, zobcanje, opomba FROM Znamka WHERE naslov = '$naslov'";
-	
+
 	$result = mysqli_query($conn, $q);
-	
+
 	echo "<tr id='$id' class='podatki'>";
-	
+
 	while ($row = mysqli_fetch_assoc($result))
 	{
-		$str = ""; 
+		$str = "";
 		if ($row['slika'] != "") {
 			$str .= "<td><img style='box-shadow: 0px 0px 10px black;' src='". $row['slika'] . "'/></td>";
 		}
@@ -219,13 +219,12 @@ if ($_POST['method'] == "z_podatki")
 			$str .= "<span style='font-family: comforta;font-size:14px; color: #333;'><span style='color:#119091;'>Opomba: </span>".$row["opomba"]."</span><hr style='margin-left:0px;margin-right:0px;'>";
 		}
 		$str .= "</td>";
-		
+
 		echo ($str);
 	}
-			
-	echo "</tr>"; 
+
+	echo "</tr>";
 }
-<<<<<<< HEAD
 
 if ($_POST['method'] == "odvec_z")
 {
@@ -234,9 +233,12 @@ if ($_POST['method'] == "odvec_z")
 	$q = "SELECT * FROM znamka_uporabnik WHERE ID_znamka='".$id."' AND odvec=1";
 
 	$result = mysqli_query($conn, $q);
-	echo "<tr id='$id' class='od_z'>";
-	echo "<td colspan='3'><h1 style='color: #333;'>To znamko ima odveč...</h1></td>";
+    if(mysqli_num_rows($result) > 0){
+        echo "<tr id='$id' class='od_z'>";
+        echo "<td colspan='3'><h1 style='color: #333;'>To znamko ima odveč...</h1></td>";
         echo "</tr>";
+    }
+
 	while ($row = mysqli_fetch_assoc($result))
 	{
         $id_uporabnik = $row["ID_uporabnik"];
@@ -301,8 +303,7 @@ if ($_POST['method'] == "user_podatki")
 
 	echo "</tr>";
 }
-?>
-=======
+
 
 //pridobivanje uporabnikovega profila
 if ($_POST['method'] == "user_podatki")
@@ -348,4 +349,3 @@ if ($_POST['method'] == "user_podatki")
 	}
 }
 ?>
->>>>>>> origin/master

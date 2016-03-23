@@ -20,7 +20,7 @@ class Users {
 
 	function checkUser($oauth_provider,$oauth_uid,$fname,$lname,$email,$gender,$locale,$picture){
 		$query = "SELECT * FROM ".$this->table_name." WHERE oauth_provider = '".$oauth_provider."' AND oauth_uid = '".$oauth_uid."'";
-                $result = mysqli_query($this->connect, $query);
+        $result = mysqli_query($this->connect, $query);
 
 
 		if(mysqli_num_rows($result)>0){
