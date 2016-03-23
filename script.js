@@ -13,14 +13,13 @@ function prikazi(elementi) {
 	    get_znamke($('select').val());
     }
     else if (elementi.id == "uporabnik_tab") {
-	   	get_user(userID); // PRAVI USER ID IZ SESSIONA
+	   	get_user(userID);
     }
 }
 
 //prikaz znamk ko spremenis izbrano leto
 $(document).ready(function() {
 	get_znamke($('select').val());
-
     $('select').change(function(){
         var val = $(this).val();
         get_znamke(val);
@@ -31,7 +30,8 @@ $(document).ready(function() {
 $(document).on("mousedown", "td.znamke_prikaz", function() {
 	var id = $(this).attr("ID");
 	znamka_podatki(id, "");
-	get_znamka_user (id, userID); //PRAVI USER ID
+    odvec_znamka(id);
+	get_znamka_user (id, userID);
 });
 
 //back button clicked
@@ -45,19 +45,19 @@ $(document).on("mousedown", "#backButton", function() {
 //imam znamko clicked
 $(document).on("mousedown", "#imamZ_btn", function() {
 	var id_znamke = $("tr.podatki").attr("id");
-	oznaci_znamka_user (id_znamke, userID, "imam"); //PRAVI USER ID namesto 1 (IZ SESSIONA)
+	oznaci_znamka_user (id_znamke, userID, "imam");
 });
 
 //nimam znamke clicked
 $(document).on("mousedown", "#nimamZ_btn", function() {
 	var id_znamke = $("tr.podatki").attr("id");
-	oznaci_znamka_user (id_znamke, userID, "nimam"); //PRAVI USER ID
+	oznaci_znamka_user (id_znamke, userID, "nimam");
 });
 
 //odvec znamka clicked
 $(document).on("mousedown", "#odvecZ_btn", function() {
 	var id_znamke = $("tr.podatki").attr("id");
-	oznaci_znamka_user (id_znamke, userID, "odvec"); //PRAVI USER ID
+	oznaci_znamka_user (id_znamke, userID, "odvec");
 });
 
 //vstavi novo znamko clicked
@@ -146,6 +146,28 @@ function znamka_podatki (id, naslov) {
 	$('#leto_znamke').hide();
 	$('#glavna_tabcontent').hide();
 	$('#znamka_profil').show();
+}
+
+function odvec_znamka (id) {
+	$('#odvec').html("");
+	$.ajax({
+		type: "POST",
+		url: "podatki_baza.php",
+		data:
+		{
+			znamka_id: id,
+			method: "odvec_z"
+		},
+		cache: false,
+		success: function (result)
+		{
+            $('#odvec').html(result);
+		},
+		error: function (result)
+		{
+			console.log(result);
+		}
+	});
 }
 
 function get_znamka_user (id_znamka, id_user) {

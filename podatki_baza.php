@@ -1,4 +1,6 @@
 <?php
+error_reporting(-1);
+ini_set('display_errors', 'On');
 include_once 'connToDatabase.php';
 
 //vstavljanje nove znamke
@@ -222,6 +224,38 @@ if ($_POST['method'] == "z_podatki")
 	}
 			
 	echo "</tr>"; 
+}
+
+if ($_POST['method'] == "odvec_z")
+{
+    $id =  $_POST['znamka_id'];
+
+	$q = "SELECT * FROM znamka_uporabnik WHERE ID_znamka='".$id."' AND odvec=1";
+
+	$result = mysqli_query($conn, $q);
+	echo "<tr id='$id' class='od_z'>";
+	echo "<td colspan='3'><h1 style='color: #333;'>To znamko ima odveč...</h1></td>";
+        echo "</tr>";
+	while ($row = mysqli_fetch_assoc($result))
+	{
+        $id_uporabnik = $row["ID_uporabnik"];
+        $sql = "SELECT * FROM users WHERE id='".$id_uporabnik."'";
+        $result2 = mysqli_query($conn, $sql);
+        while ($row2 = mysqli_fetch_assoc($result2))
+	    {
+            echo "<tr id='$id' class='od_z'>";
+            $str = "";
+            $str .= "<td><img style='box-shadow: 0px 0px 10px black;' src='". $row2['picture'] . "'/></td>";
+            $str .= "<td>";
+            $str .= "<span style='font-family: comforta;font-size:26px; color: #333;'>" . $row2["fname"] . "</span><br>";
+            $str .= "</td>";
+            $str .= "<td><button type='button' class='ponudi'>Ponudi ponudbo</button></td>";
+            echo ($str);
+            echo "</tr>";
+        }
+	}
+
+
 }
 
 if ($_POST['method'] == "user_podatki")

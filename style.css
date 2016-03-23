@@ -270,12 +270,37 @@ input:focus
 	margin-left: 5px;
 }
 
+.ponudi{
+    -webkit-border-radius: 25;
+	-moz-border-radius: 25;
+	border-radius: 25px;
+	font-family: comforta;
+	color: #ffffff;
+	font-size: 18px;
+	background: #25b89b;
+	padding-left: 15px;
+	padding-right: 15px;
+	border: solid #25ad9b 1px;
+	text-decoration: none;
+	text-align:center;
+	width:50x;
+	height:50px;
+	margin-top: 5px;
+	margin-left: 5px;
+}
+
 .facebook-button{
     margin-top: 20px;
     margin-left: 140px;
 }
 
 #znamka_podatki td {
+	padding-left: 50px;
+	padding-right: 50px;
+	padding-bottom: 50px;
+}
+
+#odvec td {
 	padding-left: 50px;
 	padding-right: 50px;
 	padding-bottom: 50px;
