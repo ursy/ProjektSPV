@@ -95,6 +95,8 @@
 	
 	<!--uporabnikov profil-->
 	<div id="uporabnik_tabcontent" class="tabContent">
+		<table style='margin-left:40px; margin-right:40px; width:720px;' id="user_podatki">
+		</table>
 	</div>
 	
 	<!--dodajanje novih znamk-->

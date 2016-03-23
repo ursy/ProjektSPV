@@ -13,6 +13,9 @@ function prikazi(elementi) {
 	if (elementi.id == 'glavna_tab') {
 	    get_znamke($('select').val());
     }
+    else if (elementi.id == "uporabnik_tab") {
+	   	get_user(15); // PRAVI USER ID IZ SESSIONA
+    }
 }
 
 //prikaz znamk ko spremenis izbrano leto
@@ -43,19 +46,19 @@ $(document).on("mousedown", "#backButton", function() {
 //imam znamko clicked
 $(document).on("mousedown", "#imamZ_btn", function() {
 	var id_znamke = $("tr.podatki").attr("id");
-	oznaci_znamka_user (id_znamke, 1, "imam"); //PRAVI USER ID 
+	oznaci_znamka_user (id_znamke, 15, "imam"); //PRAVI USER ID namesto 1 (IZ SESSIONA)
 });
 
 //nimam znamke clicked
 $(document).on("mousedown", "#nimamZ_btn", function() {
 	var id_znamke = $("tr.podatki").attr("id");
-	oznaci_znamka_user (id_znamke, 1, "nimam"); //PRAVI USER ID
+	oznaci_znamka_user (id_znamke, 15, "nimam"); //PRAVI USER ID
 });
 
 //odvec znamka clicked
 $(document).on("mousedown", "#odvecZ_btn", function() {
 	var id_znamke = $("tr.podatki").attr("id");
-	oznaci_znamka_user (id_znamke, 1, "odvec"); //PRAVI USER ID
+	oznaci_znamka_user (id_znamke, 15, "odvec"); //PRAVI USER ID
 });
 
 //vstavi novo znamko clicked
@@ -227,4 +230,27 @@ function oznaci_znamka_user (id_znamka, id_user, oznacba) {
 			alert(data);
 		}
 	});
+}
+
+function get_user(id) {
+	$('#user_podatki').html("");
+	$.ajax({
+		type: "POST",
+		url: "podatki_baza.php",
+		data: 
+		{
+			user_id: id,
+			method: "user_podatki"
+		},
+		cache: false,
+		success: function (result) 
+		{
+            $('#user_podatki').html(result);
+		},
+		error: function (result) 
+		{
+			alert(result);
+		}
+	});
+	$('#user_podatki').show();
 }
