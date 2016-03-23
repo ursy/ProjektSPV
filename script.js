@@ -9,7 +9,6 @@ function prikazi(elementi) {
     
     var tabContentId = elementi.id + "content";
     document.getElementById(tabContentId).style.display = 'block';
-    
 	if (elementi.id == 'glavna_tab') {
 	    get_znamke($('select').val());
     }

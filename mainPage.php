@@ -1,3 +1,21 @@
+<?php
+    error_reporting(-1);
+    ini_set('display_errors', 'On');
+    session_start();
+    require_once './facebook-php-sdk-v4-5.0.0/src/Facebook/autoload.php';
+    require_once './config.php';
+    //destroy facebook session if user clicks reset
+    $fb = new Facebook\Facebook([
+        'app_id' => $appId,
+        'app_secret' => $appSecret,
+        'default_graph_version' => 'v2.5'
+    ]);
+
+    $helper = $fb->getRedirectLoginHelper();
+    $permissions = ['email']; // optional
+    $loginUrl = $helper->getLoginUrl('http://znamkarija.hotbit.eu:88/login-callback-facebook.php', $permissions);
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,21 +27,24 @@
   <script src="script.js"></script>
 </head>
 <body>
-
-<div id="website">
-	<div>
-		<ul class="nav">
-			<li style="float:left"><img class="banner" src="znamke.jpg"></img></li> <!--slika banner-->
-		</ul>
-	</div>
+    <div id="website">
+        <div>
+            <ul class="nav">
+                <li style="float:left"><img class="banner" src="znamke.jpg"></img></li> <!--slika banner-->
+            </ul>
+        </div>
 
 	<!--navigacija-->
 	<div>
 		<ul class="nav1">
-			<li id="prijava_tab" onclick="prikazi(this)" style="float:right"><a href="#prijava">Prijava</a></li>
+                        <?php if(isset($_SESSION['user_id'])){?>
+                            <li id="odjava_tab" onclick="prikazi(this)" style="float:right"><a href="#odjava">Odjava</a></li>
+                        <?php }else{?>
+                            <li id="prijava_tab" onclick="prikazi(this)" style="float:right"><a href="#prijava">Prijava</a></li>
+                        <?php }?>
 			<li id="registracija_tab" onclick="prikazi(this)" style="float:right"><a href="#registracija">Registracija</a></li>
 			<li id="glavna_tab" onclick="prikazi(this)" style="float:right"><a href="#home">Glavna stran</a></li>
-			<li id="uporabnik_tab" onclick="prikazi(this)" style="float:right"><a href="#home">Moj profil</a></li>
+			<li id="uporabnik_tab" onclick="prikazi(this)" style="float:right"><a href="#profile">Moj profil</a></li>
 			<li id="novaznamka_tab" onclick="prikazi(this)" style="float:right"><a href="#home">Nova znamka</a></li>
 		</ul>
 	</div>
@@ -55,25 +76,31 @@
 	
 	<!--prikaz podatkov o posamezni znamki-->
 	<div id="znamka_profil" class="tabContent">
-		<button type="button" class="btn3" id="backButton"><</button>
+		<button type="button" class="btn3" id="backButton"></button>
 		<button type="button" class="btn3" id="imamZ_btn">I</button>
 		<button type="button" class="btn3" id="nimamZ_btn">N</button>
 		<button type="button" class="btn3" id="odvecZ_btn">O</button>
 		<table style='margin-left:40px; margin-right:40px;' id="znamka_podatki">
 		</table>
 	</div>
-
+    <div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="false"></div>
 	<!--prijava-->
 	<div id="prijava_tabcontent" class="tabContent">
 		<div style="box-shadow: -5px 5px 5px -5px #333, 5px 5px 5px -5px #333;border-radius: 5px;margin-bottom:70px; margin-top:70px; margin-left:200px; width:400px; height:500px; background-color: #333;">
 			<h1>PRIJAVA</h1>
-			<input type="text" placeholder="Uporabniško ime*" style="font-family: comforta;margin-left:37px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" />
-			<input type="password" placeholder="Geslo*" style="font-family: comforta;margin-top:25px;margin-left:37px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" />      
-			<button type="button" class="btn">PRIJAVA</button>
-			<h3>ali: </h3>
-			<button type="button" class="btn1">Google</button>
-			<button type="button" class="btn2">Facebook</button>
+                        <input type="text" placeholder="Uporabniško ime*" style="font-family: comforta;margin-left:37px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" />
+                        <input type="password" placeholder="Geslo*" style="font-family: comforta;margin-top:25px;margin-left:37px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" />
+                        <button type="button" class="btn">PRIJAVA</button>
+                        <h3>ali: </h3>
+                        <button type="button" class="btn1">Google</button>
+                        <?php echo '<a href="' . $loginUrl . '"><button type="button" class="btn2" >Facebook</button></a>';?>
 		</div> 
+	</div>
+        <!--uporabnikov profil-->
+	<div id="odjava_tabcontent" class="tabContent">
+            <div style="box-shadow: -5px 5px 5px -5px #333, 5px 5px 5px -5px #333;border-radius: 5px;margin-bottom:70px; margin-top:70px; margin-left:200px; width:400px; height:100px; background-color: #333;">
+                <a href="logout.php?logout"><button type="button" class="btn">LOGOUT</button></a>
+            </div>
 	</div>
 
 	<!--registracija-->
@@ -121,7 +148,20 @@
 	</div>
 
 </div>
+<?php
+    if(isset($_GET['page'])){
+        if($_GET['page']=="profile"){
+            echo "<script>
+                    $(document).ready(function() {
+                        var element = document.getElementById('uporabnik_tab');
+                        prikazi(element);
+                    });
 
+                </script>";
+        }
+    }
+
+?>
 
 </body>
 </html>

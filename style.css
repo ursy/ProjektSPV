@@ -270,6 +270,11 @@ input:focus
 	margin-left: 5px;
 }
 
+.facebook-button{
+    margin-top: 20px;
+    margin-left: 140px;
+}
+
 #znamka_podatki td {
 	padding-left: 50px;
 	padding-right: 50px;
