@@ -224,32 +224,34 @@ if ($_POST['method'] == "z_podatki")
 	echo "</tr>"; 
 }
 
+//pridobivanje uporabnikovega profila
 if ($_POST['method'] == "user_podatki")
 {
 	$id =  $_POST['user_id'];
-	echo $id;
-	$q = "SELECT picture, fname, lname, email, gender FROM users WHERE id = '$id'";
+	#echo $id;
+	$q = "SELECT picture, fname, lname, email, gender, isEditable FROM users WHERE id = '$id'";
 
 	$result = mysqli_query($conn, $q);
 
-	echo "<tr>";
-
 	while ($row = mysqli_fetch_assoc($result))
 	{
-		$str = "";
+		$isEditable = "0";
+		if ($row['isEditable'] == 1)
+			$isEditable = "1";
+		$str = $isEditable . "<tr>";
 		if ($row['picture'] != "") {
 			$str .= "<td><img style='box-shadow: 0px 0px 10px black;' src='". $row['picture'] . "'/></td>";
 		}
 		$str .= "<td>";
 		if ($row["fname"] != "") {
-			$str .= "<span style='font-family: comforta;font-size:26px; color: #333;'>" . $row["fname"];
+			$str .= "<span style='font-family: comforta;font-size:26px; color: #333;'> <span id='user_fname'>" . $row["fname"];
 		}
 		if ($row["lname"] != "") {
-			$str .= " " . $row["lname"];
+			$str .= "</span> <span id='user_lname'> " . $row["lname"];
 		}
-		$str .= "</span><br><br><br>";
+		$str .= "</span></span><br><br><br>";
 		if ($row["email"] != "") {
-			$str .= "<span style='font-family: comforta;font-size:14px; color: #333;'><span style='color:#119091;'>E-mail: </span>".$row["email"]."</span><hr style='margin-left:0px;margin-right:0px;'>";
+			$str .= "<span style='font-family: comforta;font-size:14px; color: #333;'><span style='color:#119091;'>E-mail: </span><span id='user_email'>".$row["email"]."</span></span><hr style='margin-left:0px;margin-right:0px;'>";
 		}
 		if ($row["gender"] != "") {
 			$spol = "";
@@ -257,13 +259,12 @@ if ($_POST['method'] == "user_podatki")
 				$spol = "moški";
 			else
 				$spol = "ženski";
-			$str .= "<span style='font-family: comforta;font-size:14px; color: #333;'><span style='color:#119091;'>Spol: </span>". $spol ."</span><hr style='margin-left:0px;margin-right:0px;'>";
+			$str .= "<span style='font-family: comforta;font-size:14px; color: #333;'><span style='color:#119091;'>Spol: </span><span class='user_sex' id='".$row["gender"]. "'>". $spol ."</span></span><hr style='margin-left:0px;margin-right:0px;'>";
 		}
-		$str .= "</td>";
+		
+		$str .= "</td></tr>";
 
 		echo ($str);
 	}
-
-	echo "</tr>";
 }
 ?>

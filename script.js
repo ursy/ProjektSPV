@@ -13,6 +13,7 @@ function prikazi(elementi) {
 	    get_znamke($('select').val());
     }
     else if (elementi.id == "uporabnik_tab") {
+	    $("#editProfileButton").hide();
 	   	get_user(userID); // PRAVI USER ID IZ SESSIONA
     }
 }
@@ -58,6 +59,26 @@ $(document).on("mousedown", "#nimamZ_btn", function() {
 $(document).on("mousedown", "#odvecZ_btn", function() {
 	var id_znamke = $("tr.podatki").attr("id");
 	oznaci_znamka_user (id_znamke, userID, "odvec"); //PRAVI USER ID
+});
+
+//uredi profil clicked
+$(document).on("mousedown", "#editProfileButton", function() {
+	$('#uporabnik_tabcontent').hide();
+	$('#ime_uporabnika').val($('#user_fname').text());
+	$('#priimek_uporabnika').val($('#user_lname').text());
+	$('#email_uporabnika').val($('#user_email').text());
+	var spol = $('.user_sex').attr('id');
+	$('#spol_uporabnika').val(spol);
+	$('#edit_uporabnik_tabcontent').show();
+});
+
+//uredi profil done clicked
+$(document).on("mousedown", "#editDoneButton", function() {
+	var ime = $('#ime_uporabnika').val();
+	var priimek = $('#priimek_uporabnika').val();
+	var email = $('#email_uporabnika').val();
+	var spol = $('#spol_uporabnika').val();
+	change_user_data(userID); // PRAVI USER ID 
 });
 
 //vstavi novo znamko clicked
@@ -245,7 +266,11 @@ function get_user(id) {
 		cache: false,
 		success: function (result)
 		{
-            $('#user_podatki').html(result);
+			if (result[0] == "0")
+				$('#editProfileButton').hide();
+			else if (result[0] == "1")
+				$('#editProfileButton').show();
+            $('#user_podatki').html(result.substr(0));
 		},
 		error: function (result)
 		{
@@ -253,4 +278,26 @@ function get_user(id) {
 		}
 	});
 	$('#user_podatki').show();
+}
+
+function change_user_data(id) {
+	$.ajax({
+		type: "POST",
+		url: "podatki_baza.php",
+		data:
+		{
+			user_id: id,
+			method: "change_user_podatki"
+		},
+		cache: false,
+		success: function (result)
+		{
+			$('#uporabnik_tabcontent').show();
+			$('#edit_uporabnik_tabcontent').hide();
+		},
+		error: function (result)
+		{
+			alert(result);
+		}
+	});
 }
