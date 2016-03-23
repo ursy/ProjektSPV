@@ -40,11 +40,11 @@
 	<!--navigacija-->
 	<div>
 		<ul class="nav1">
-                        <?php if(isset($_SESSION['user_id'])){?>
-                            <li id="odjava_tab" onclick="prikazi(this)" style="float:right"><a href="#odjava">Odjava</a></li>
-                        <?php }else{?>
-                            <li id="prijava_tab" onclick="prikazi(this)" style="float:right"><a href="#prijava">Prijava</a></li>
-                        <?php }?>
+            <?php if(isset($_SESSION['user_id'])) {?>
+                <li id="odjava_tab" onclick="prikazi(this)" style="float:right"><a href="#odjava">Odjava</a></li>
+            <?php } else {?>
+                <li id="prijava_tab" onclick="prikazi(this)" style="float:right"><a href="#prijava">Prijava</a></li>
+            <?php }?>
 			<li id="registracija_tab" onclick="prikazi(this)" style="float:right"><a href="#registracija">Registracija</a></li>
 			<li id="glavna_tab" onclick="prikazi(this)" style="float:right"><a href="#home">Glavna stran</a></li>
 			<li id="uporabnik_tab" onclick="prikazi(this)" style="float:right"><a href="#profile">Moj profil</a></li>
@@ -79,7 +79,11 @@
 
 	<!--prikaz podatkov o posamezni znamki-->
 	<div id="znamka_profil" class="tabContent">
+<<<<<<< HEAD
 		<button type="button" class="btn3" id="backButton">Back</button>
+=======
+		<button type="button" class="btn3" id="backButton"><</button>
+>>>>>>> origin/master
 		<button type="button" class="btn3" id="imamZ_btn">I</button>
 		<button type="button" class="btn3" id="nimamZ_btn">N</button>
 		<button type="button" class="btn3" id="odvecZ_btn">O</button>
@@ -94,6 +98,7 @@
 
 
     <div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="false"></div>
+
 	<!--prijava-->
 	<div id="prijava_tabcontent" class="tabContent">
 		<div style="box-shadow: -5px 5px 5px -5px #333, 5px 5px 5px -5px #333;border-radius: 5px;margin-bottom:70px; margin-top:70px; margin-left:200px; width:400px; height:500px; background-color: #333;">
@@ -106,7 +111,8 @@
                         <?php echo '<a href="' . $loginUrl . '"><button type="button" class="btn2" >Facebook</button></a>';?>
 		</div>
 	</div>
-        <!--uporabnikov profil-->
+
+    <!--odjava-->
 	<div id="odjava_tabcontent" class="tabContent">
             <div style="box-shadow: -5px 5px 5px -5px #333, 5px 5px 5px -5px #333;border-radius: 5px;margin-bottom:70px; margin-top:70px; margin-left:200px; width:400px; height:100px; background-color: #333;">
                 <a href="logout.php?logout"><button type="button" class="btn">LOGOUT</button></a>
@@ -132,8 +138,24 @@
 
 	<!--uporabnikov profil-->
 	<div id="uporabnik_tabcontent" class="tabContent">
+		<button type="button" class="btn3" id="editProfileButton">Uredi</button>
 		<table style='margin-left:40px; margin-right:40px; width:720px;' id="user_podatki">
 		</table>
+	</div>
+
+	<!--urejanje uporabnikovega profila-->
+	<div id="edit_uporabnik_tabcontent" class="tabContent">
+		<div style="box-shadow: -5px 5px 5px -5px #333, 5px 5px 5px -5px #333;border-radius: 5px;margin-bottom:70px; margin-top:70px; margin-left:200px; width:400px; height:450px; background-color: #333;">
+			<h1>Uredi profil</h1>
+			<input type="text" placeholder="Ime*" style="font-family: comforta;margin-left:37px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" id='ime_uporabnika'/>
+			<input type="text" placeholder="Priimek*" style="font-family: comforta;margin-top:25px;margin-left:37px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" id='priimek_uporabnika'/>
+			<!-<input type="text" placeholder="Kraj" style="font-family: comforta;margin-top:25px;margin-left:50px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" id='kraj_uporabnika'/>
+			<input type="text" placeholder="E-mail" style="font-family: comforta;margin-top:25px;margin-left:37px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" id='email_uporabnika'/>
+			<select id="spol_uporabnika">
+				<option value="male">Moški</option>
+				<option value="female">Ženski</option>
+			</select>
+		<button type="button" class="btn" id="editDoneButton">OK</button>
 	</div>
 
 	<!--dodajanje novih znamk-->
@@ -158,22 +180,19 @@
 			<button type="button" class="btn" id='vstavi_znamko_btn'>VSTAVI</button>
 		</div>
 	</div>
-
 </div>
+
 <?php
     if(isset($_GET['page'])){
-        if($_GET['page']=="profile"){
+        if ($_GET['page'] == "profile") {
             echo "<script>
                     $(document).ready(function() {
                         var element = document.getElementById('uporabnik_tab');
                         prikazi(element);
                     });
-
                 </script>";
         }
     }
-
 ?>
-
 </body>
 </html>
