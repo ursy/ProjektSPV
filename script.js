@@ -1,23 +1,26 @@
 //prikaz vsebina tab - glavna stran...
 function prikazi(elementi) {
     var tabContents = document.getElementsByClassName('tabContent');
-	
-    for (var i = 0; i < tabContents.length; i++) 
-	{ 
+
+    for (var i = 0; i < tabContents.length; i++)
+	{
         tabContents[i].style.display = 'none';
     }
-    
+
     var tabContentId = elementi.id + "content";
     document.getElementById(tabContentId).style.display = 'block';
 	if (elementi.id == 'glavna_tab') {
 	    get_znamke($('select').val());
+    }
+    else if (elementi.id == "uporabnik_tab") {
+	   	get_user(userID); // PRAVI USER ID IZ SESSIONA
     }
 }
 
 //prikaz znamk ko spremenis izbrano leto
 $(document).ready(function() {
 	get_znamke($('select').val());
-	
+
     $('select').change(function(){
         var val = $(this).val();
         get_znamke(val);
@@ -28,7 +31,7 @@ $(document).ready(function() {
 $(document).on("mousedown", "td.znamke_prikaz", function() {
 	var id = $(this).attr("ID");
 	znamka_podatki(id, "");
-	get_znamka_user (id, 1); //PRAVI USER ID 
+	get_znamka_user (id, userID); //PRAVI USER ID
 });
 
 //back button clicked
@@ -42,19 +45,19 @@ $(document).on("mousedown", "#backButton", function() {
 //imam znamko clicked
 $(document).on("mousedown", "#imamZ_btn", function() {
 	var id_znamke = $("tr.podatki").attr("id");
-	oznaci_znamka_user (id_znamke, 1, "imam"); //PRAVI USER ID 
+	oznaci_znamka_user (id_znamke, userID, "imam"); //PRAVI USER ID namesto 1 (IZ SESSIONA)
 });
 
 //nimam znamke clicked
 $(document).on("mousedown", "#nimamZ_btn", function() {
 	var id_znamke = $("tr.podatki").attr("id");
-	oznaci_znamka_user (id_znamke, 1, "nimam"); //PRAVI USER ID
+	oznaci_znamka_user (id_znamke, userID, "nimam"); //PRAVI USER ID
 });
 
 //odvec znamka clicked
 $(document).on("mousedown", "#odvecZ_btn", function() {
 	var id_znamke = $("tr.podatki").attr("id");
-	oznaci_znamka_user (id_znamke, 1, "odvec"); //PRAVI USER ID
+	oznaci_znamka_user (id_znamke, userID, "odvec"); //PRAVI USER ID
 });
 
 //vstavi novo znamko clicked
@@ -63,7 +66,7 @@ $(document).on("mousedown", "#vstavi_znamko_btn", function() {
 		$.ajax({
 		    url: "podatki_baza.php",
 		    type: "POST",
-		    data: 
+		    data:
 			{
 				naslov: $("input#naslov_znamke").val(),
 				datum: $("input#datum_znamke").val(),
@@ -82,15 +85,15 @@ $(document).on("mousedown", "#vstavi_znamko_btn", function() {
 				method: "vstavi_znamko"
 			},
 		    cache: false,
-		    success: function(data) 
+		    success: function(data)
 			{
 				location.reload();
 		    },
-		    error: function(data) 
+		    error: function(data)
 			{
 				alert(data);
 		    }
-		});  
+		});
 	}
 	else {
 		alert("Izpolnite obvezna polja!");
@@ -104,17 +107,17 @@ function get_znamke(leto) {
 	$.ajax({
 	    url: "podatki_baza.php",
 	    type: "POST",
-	    data: 
+	    data:
 		{
 			id: leto,
 			method: "prikaz_znamke"
 		},
 	    cache: false,
-	    success: function(data) 
+	    success: function(data)
 		{
 	         $("#znamka").html(data);
 	    }
-	});  
+	});
 	$('#leto_znamke').show();
 	$('#znamka_profil').hide();
 }
@@ -124,18 +127,18 @@ function znamka_podatki (id, naslov) {
 	$.ajax({
 		type: "POST",
 		url: "podatki_baza.php",
-		data: 
+		data:
 		{
 			ime_znamka: naslov,
 			znamka_id: id,
 			method: "z_podatki"
 		},
 		cache: false,
-		success: function (result) 
+		success: function (result)
 		{
             $('#znamka_podatki').html(result);
 		},
-		error: function (result) 
+		error: function (result)
 		{
 			alert(result);
 		}
@@ -149,20 +152,20 @@ function get_znamka_user (id_znamka, id_user) {
 	$.ajax({
 		type: "POST",
 		url: "podatki_baza.php",
-		data: 
+		data:
 		{
 			id_user: id_user,
 			id_znamka: id_znamka,
 			method: "get_znamka_user"
 		},
 		cache: false,
-		success: function (result) 
+		success: function (result)
 		{
             var values=result.split('-');
 			var ima=values[0];
 			var nima=values[1];
 			var odvec=values[2];
-			
+
 			if (ima == 1) {
 				$("#imamZ_btn").text("imam");
 				$("#nimamZ_btn").text("--");
@@ -171,7 +174,7 @@ function get_znamka_user (id_znamka, id_user) {
 				$("#imamZ_btn").text("--");
 				$("#nimamZ_btn").text("nimam");
 			}
-			
+
 			if (odvec == 1) {
 				$("#odvecZ_btn").text("odvec");
 			}
@@ -179,7 +182,7 @@ function get_znamka_user (id_znamka, id_user) {
 				$("#odvecZ_btn").text("--");
 			}
 		},
-		error: function (result) 
+		error: function (result)
 		{
 			alert(result);
 		}
@@ -190,21 +193,21 @@ function oznaci_znamka_user (id_znamka, id_user, oznacba) {
 	$.ajax({
 		url: "podatki_baza.php",
 		type: "POST",
-		data: 
+		data:
 		{
-			uporabnik: id_user, 
+			uporabnik: id_user,
 			znamka: id_znamka,
 			oznacba: oznacba,
 			method: "oznaci_znamko"
 		},
 		cache: false,
-		success: function(result) 
+		success: function(result)
 		{
 			var values=result.split('-');
 			var ima=values[0];
 			var nima=values[1];
 			var odvec=values[2];
-			
+
 			if (ima == 1) {
 				$("#imamZ_btn").text("imam");
 				$("#nimamZ_btn").text("--");
@@ -213,7 +216,7 @@ function oznaci_znamka_user (id_znamka, id_user, oznacba) {
 				$("#imamZ_btn").text("--");
 				$("#nimamZ_btn").text("nimam");
 			}
-			
+
 			if (odvec == 1) {
 				$("#odvecZ_btn").text("odvec");
 			}
@@ -221,9 +224,33 @@ function oznaci_znamka_user (id_znamka, id_user, oznacba) {
 				$("#odvecZ_btn").text("--");
 			}
 		},
-		error: function(data) 
+		error: function(data)
 		{
 			alert(data);
 		}
 	});
+}
+
+
+function get_user(id) {
+	$('#user_podatki').html("");
+	$.ajax({
+		type: "POST",
+		url: "podatki_baza.php",
+		data:
+		{
+			user_id: id,
+			method: "user_podatki"
+		},
+		cache: false,
+		success: function (result)
+		{
+            $('#user_podatki').html(result);
+		},
+		error: function (result)
+		{
+			alert(result);
+		}
+	});
+	$('#user_podatki').show();
 }

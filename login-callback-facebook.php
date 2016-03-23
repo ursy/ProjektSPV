@@ -60,7 +60,7 @@ if (isset($accessToken)) {
         $output .= '<br/>You are login with : Facebook';
         $output .= '<br/>Logout from <a href="logout.php?logout">Facebook</a>';
         $_SESSION['provider']="facebook";
-        $_SESSION['user_id']=$user_data['oauth_uid'];
+        $_SESSION['user_id']=$user_data['id'];
         $_SESSION['email']=$user_data['email'];
     }else{
         $output = '<h3 style="color:red">Some problem occurred, please try again.</h3>';
