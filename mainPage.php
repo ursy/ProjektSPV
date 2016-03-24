@@ -80,7 +80,6 @@
 	<!--prikaz podatkov o posamezni znamki-->
 	<div id="znamka_profil" class="tabContent">
 		<button type="button" class="btn3" id="backButton">Back</button>
-		<button type="button" class="btn3" id="backButton"></button>
 		<button type="button" class="btn3" id="imamZ_btn">I</button>
 		<button type="button" class="btn3" id="nimamZ_btn">N</button>
 		<button type="button" class="btn3" id="odvecZ_btn">O</button>
