@@ -47,8 +47,9 @@ $(document).on("mousedown", "#backButton", function() {
 
 //ponudi ponudba clicked
 $(document).on("mousedown", "tr.od_z", function() {
-	$('#znamka_profil').hide();
-	$('#znamka_zamenjava').show();
+	//$('#znamka_profil').hide();
+	//$('#znamka_zamenjava').show();
+	alert("OK");
 });
 
 //imam znamko clicked
