@@ -45,12 +45,6 @@ $(document).on("mousedown", "#backButton", function() {
 	$('#glavna_tabcontent').show();
 });
 
-//back button - zamenjava znamk
-$(document).on("mousedown", "#backButton1", function() {
-	$('#znamka_zamenjava').hide();
-	$('#znamka_profil').show();
-});
-
 //ponudi ponudba clicked
 $(document).on("mousedown", "td.ponudi", function() {
 	$('#znamka_profil').hide();
