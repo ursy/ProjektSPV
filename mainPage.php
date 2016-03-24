@@ -169,7 +169,8 @@
 				<option value="male">Moški</option>
 				<option value="female">Ženski</option>
 			</select>
-		<button type="button" class="btn" id="editDoneButton">OK</button>
+			<button type="button" class="btn" id="editDoneButton">OK</button>
+		</div>
 	</div>
 
 	<!--dodajanje novih znamk-->
