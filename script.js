@@ -52,7 +52,7 @@ $(document).on("mousedown", "#backButton1", function() {
 });
 
 //ponudi ponudba clicked
-$(document).on("mousedown", "#ponudi", function() {
+$(document).on("mousedown", "td.ponudi", function() {
 	$('#znamka_profil').hide();
 	$('#znamka_zamenjava').show();
 });

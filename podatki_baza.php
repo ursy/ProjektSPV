@@ -252,7 +252,7 @@ if ($_POST['method'] == "odvec_z")
             $str .= "<td>";
             $str .= "<span style='font-family: comforta;font-size:26px; color: #333;'>" . $row2["fname"] . "</span><br>";
             $str .= "</td>";
-            $str .= "<td><button type='button' id='ponudi'>Ponudi ponudbo</button></td>";
+            $str .= "<td><button type='button' class='ponudi'>Ponudi ponudbo</button></td>";
             echo ($str);
             echo "</tr>";
         }
