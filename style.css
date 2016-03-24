@@ -124,13 +124,46 @@ label
 	padding-left:15px;
 }
 
+#ponudba_label
+{
+	font-family:comforta;
+	font-size: 20px;
+	text-align:right;
+    padding-right:20px;
+	padding-left:15px;
+	color:white;
+	margin-left:50px;
+}
+
+#zamenjava_label
+{
+	font-family:comforta;
+	font-size: 20px;
+	text-align:right;
+    padding-right:20px;
+	padding-left:40px;
+	color:white;
+	margin-left:60px;
+}
+
+#cas_label
+{
+	font-family:comforta;
+	font-size: 20px;
+	text-align:right;
+    padding-right:20px;
+	padding-left:40px;
+	color:white;
+	margin-left:110px;
+}
+
 hr
 {
 	margin-left:0px;
 	margin-right:0px;
 }
 
-#spol, #spol_uporabnika, #zamenjava_znamka, #ponudba_znamka
+#spol, #spol_uporabnika
 {
 	margin-top:25px;
 	margin-left:37px;
@@ -151,6 +184,38 @@ hr
 	outline: none !important;
     border:1px solid #3DD9C9;
     box-shadow: 0 0 3px #719ECE;
+}
+
+#zamenjava_znamka
+{
+	margin-top:25px;
+	margin-left:70px;
+	text-align:center;
+	padding:10px;
+	width:323px; 
+	height:45px;
+	font-size:18px;
+	border:1px solid #3DD9C9; 
+	background-color:#333; 
+	color: #d9d9d9;
+	font-family: comforta;
+	padding-left:32%;
+}
+
+#ponudba_znamka
+{
+	margin-top:25px;
+	margin-left:32px;
+	text-align:center;
+	padding:10px;
+	width:323px; 
+	height:45px;
+	font-size:18px;
+	border:1px solid #3DD9C9; 
+	background-color:#333; 
+	color: #d9d9d9;
+	font-family: comforta;
+	padding-left:32%;
 }
 
 .tabContent 
