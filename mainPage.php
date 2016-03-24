@@ -90,10 +90,6 @@
             <table style='margin-left:40px;margin-right:40px;' id="odvec" cellspacing="10">
 		      </table>
         </div>
-	</div>
-	
-	<!--prikaz zamenjava znamk-->
-	<div id="znamka_zamenjava" class="tabContent">
 		<button type="button" class="btn3" id="backButton1">Back</button>
 		<div style="box-shadow: -5px 5px 5px -5px #333, 5px 5px 5px -5px #333;border-radius: 5px;margin-bottom:70px; margin-top:120px; margin-left:0px; width:800px; height:730px; background-color: #333;">
 			<h1>Zamenjava znamk med uporabniki: </h1>
@@ -110,6 +106,10 @@
 			<input id="timestamp1" name="timestamp1" type="text" placeholder="Vnesi čas..." style="font-family: comforta;margin-top:25px;margin-left:56px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" />
 			<button style="margin-top:35px;margin-left:235px;" type="button" id="naredi_zamenjavo" name="submit" class="btn">Naredi zamenjavo</button>
 		</div> 
+	</div>
+	
+	<!--prikaz zamenjava znamk-->
+	<div id="znamka_zamenjava" class="tabContent">
 	</div>
 
     <div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="false"></div>
@@ -164,7 +164,7 @@
 			<h1>Uredi profil</h1>
 			<input type="text" placeholder="Ime*" style="font-family: comforta;margin-left:37px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" id='ime_uporabnika'/>
 			<input type="text" placeholder="Priimek*" style="font-family: comforta;margin-top:25px;margin-left:37px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" id='priimek_uporabnika'/>
-			<!-<input type="text" placeholder="Kraj" style="font-family: comforta;margin-top:25px;margin-left:50px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" id='kraj_uporabnika'/>
+			<<input type="text" placeholder="Kraj" style="font-family: comforta;margin-top:25px;margin-left:50px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" id='kraj_uporabnika'/>
 			<input type="text" placeholder="E-mail" style="font-family: comforta;margin-top:25px;margin-left:37px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" id='email_uporabnika'/>
 			<select id="spol_uporabnika">
 				<option value="male">Moški</option>
