@@ -130,7 +130,7 @@ hr
 	margin-right:0px;
 }
 
-#spol, #spol_uporabnika
+#spol, #spol_uporabnika, #zamenjava_znamka, #ponudba_znamka
 {
 	margin-top:25px;
 	margin-left:37px;
@@ -146,7 +146,7 @@ hr
 	padding-left:32%;
 }
 
-#spol:focus
+#spol:focus, #zamenjava_znamka:focus, #ponudba_znamka:focus
 {
 	outline: none !important;
     border:1px solid #3DD9C9;
