@@ -79,10 +79,11 @@
 
 	<!--prikaz podatkov o posamezni znamki-->
 	<div id="znamka_profil" class="tabContent">
-		<button type="button" class="btn3" id="backButton">Back</button>
-		<button type="button" class="btn3" id="imamZ_btn">I</button>
-		<button type="button" class="btn3" id="nimamZ_btn">N</button>
-		<button type="button" class="btn3" id="odvecZ_btn">O</button>
+		<button type="button" class="btn3" id="backButton"><img src="images/nazaj.png"/></button>
+		<button type="button" class="btn3" id="imamZ_btn"><img src="images/kljukica.png"/></button>
+		<button type="button" class="btn3" id="nimamZ_btn"><img src="images/kriz.png"/></button>
+		<button type="button" class="btn3" id="odvecZ_btn"><img src="images/menjava.png"/></button>
+		<button type="button" class="btn3" id="niodvecZ_btn"><img src="images/ne-menjava.png"/></button>
 		<table style='margin-left:40px; margin-right:40px;' id="znamka_podatki">
 		</table>
         <div id="odvec_znamke">

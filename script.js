@@ -1,3 +1,4 @@
+userID = 14;
 //prikaz vsebina tab - glavna stran...
 function prikazi(elementi) {
     var tabContents = document.getElementsByClassName('tabContent');
@@ -71,6 +72,12 @@ $(document).on("mousedown", "#nimamZ_btn", function() {
 
 //odvec znamka clicked
 $(document).on("mousedown", "#odvecZ_btn", function() {
+	var id_znamke = $("tr.podatki").attr("id");
+	oznaci_znamka_user (id_znamke, userID, "odvec");
+});
+
+//ni odvec znamka clicked
+$(document).on("mousedown", "#niodvecZ_btn", function() {
 	var id_znamke = $("tr.podatki").attr("id");
 	oznaci_znamka_user (id_znamke, userID, "odvec");
 });
@@ -224,19 +231,21 @@ function get_znamka_user (id_znamka, id_user) {
 			var odvec=values[2];
 
 			if (ima == 1) {
-				$("#imamZ_btn").text("imam");
-				$("#nimamZ_btn").text("--");
+				$("#imamZ_btn").hide();
+				$("#nimamZ_btn").show();
 			}
 			else {
-				$("#imamZ_btn").text("--");
-				$("#nimamZ_btn").text("nimam");
+				$("#imamZ_btn").show();
+				$("#nimamZ_btn").hide();
 			}
 
 			if (odvec == 1) {
-				$("#odvecZ_btn").text("odvec");
+				$("#odvecZ_btn").hide();
+				$("#niodvecZ_btn").show();
 			}
 			else {
-				$("#odvecZ_btn").text("--");
+				$("#odvecZ_btn").show();
+				$("#niodvecZ_btn").hide();
 			}
 		},
 		error: function (result)
@@ -266,19 +275,21 @@ function oznaci_znamka_user (id_znamka, id_user, oznacba) {
 			var odvec=values[2];
 
 			if (ima == 1) {
-				$("#imamZ_btn").text("imam");
-				$("#nimamZ_btn").text("--");
+				$("#imamZ_btn").hide();
+				$("#nimamZ_btn").show();
 			}
 			else {
-				$("#imamZ_btn").text("--");
-				$("#nimamZ_btn").text("nimam");
+				$("#imamZ_btn").show();
+				$("#nimamZ_btn").hide();
 			}
 
 			if (odvec == 1) {
-				$("#odvecZ_btn").text("odvec");
+				$("#odvecZ_btn").hide();
+				$("#niodvecZ_btn").show();
 			}
 			else {
-				$("#odvecZ_btn").text("--");
+				$("#odvecZ_btn").show();
+				$("#niodvecZ_btn").hide();
 			}
 		},
 		error: function(data)

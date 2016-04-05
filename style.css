@@ -390,3 +390,12 @@ input:focus
 	padding-right: 50px;
 	padding-bottom: 50px;
 }
+
+#backButton, #imamZ_btn, #nimamZ_btn, #odvecZ_btn, #niodvecZ_btn {
+/* 	background: url(images/kljukica.png) no-repeat; */
+	width: 40px;
+	height: 40px;
+	background-color: white;
+	padding-left: 4px;
+	padding-top: 4px;
+}
