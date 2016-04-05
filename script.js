@@ -1,4 +1,4 @@
-userID = 14;
+userID = 15;
 //prikaz vsebina tab - glavna stran...
 function prikazi(elementi) {
     var tabContents = document.getElementsByClassName('tabContent');
@@ -17,7 +17,6 @@ function prikazi(elementi) {
 	   	get_user(userID);
 
 	    $("#editProfileButton").hide();
-	   	get_user(userID);
     }
 }
 
@@ -313,10 +312,13 @@ function get_user(id) {
 		cache: false,
 		success: function (result)
 		{
+			/*
 			if (result[0] == "0")
 				$('#editProfileButton').hide();
 			else if (result[0] == "1")
 				$('#editProfileButton').show();
+			*/
+			alert(result )
             $('#user_podatki').html(result.substr(0));
 		},
 		error: function (result)

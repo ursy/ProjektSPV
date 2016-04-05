@@ -94,7 +94,7 @@
 	
 	<!--prikaz zamenjava znamk-->
 	<div id="znamka_zamenjava" class="tabContent">
-		<button type="button" class="btn3" id="backButton1">Back</button>
+		<button type="button" class="btn3" id="backButton1"><img src="images/nazaj.png"/></button>
 		<div style="box-shadow: -5px 5px 5px -5px #333, 5px 5px 5px -5px #333;border-radius: 5px;margin-bottom:70px; margin-top:60px; margin-left:0px; width:800px; height:730px; background-color: #333;">
 			<h1>Zamenjava znamk med uporabniki: </h1>
 			<input id="uporabnik1" name="uporabnik1" type="text" placeholder="Uporabnik1" style="font-family: comforta;margin-left:56px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" />
@@ -152,7 +152,7 @@
 
 	<!--uporabnikov profil-->
 	<div id="uporabnik_tabcontent" class="tabContent">
-		<button type="button" class="btn3" id="editProfileButton">Uredi</button>
+		<!--<button type="button" class="btn3" id="editProfileButton">Uredi</button>-->
 		<table style='margin-left:40px; margin-right:40px; width:720px;' id="user_podatki">
 		</table>
 	</div>
