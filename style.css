@@ -369,13 +369,13 @@ input:focus
 	padding-right: 50px;
 	padding-bottom: 50px;
 }
-
+/*
 #odvec td {
 	padding-left: 50px;
 	padding-right: 50px;
 	padding-bottom: 50px;
 }
-
+*/
 #user_podatki td {
 	padding-top: 50px;
 	padding-left: 50px;
@@ -391,11 +391,26 @@ input:focus
 	padding-bottom: 50px;
 }
 
-#backButton, #imamZ_btn, #nimamZ_btn, #odvecZ_btn, #niodvecZ_btn, #backButton1 {
+#backButton, #imamZ_btn, #nimamZ_btn, #odvecZ_btn, #niodvecZ_btn, #backButton1, #osebeOdvecButton, #sendButton{
 /* 	background: url(images/kljukica.png) no-repeat; */
 	width: 40px;
 	height: 40px;
 	background-color: white;
 	padding-left: 4px;
 	padding-top: 4px;
+}
+
+#ponudiButton {
+	background-color: white;
+	border-color: white;
+	border-radius: 0;
+	padding-left: 0px;
+	padding-top: 0px;	
+}
+
+#odvec {
+	border:1px solid #119091; 
+	border-radius: 5px;
+	padding: 5px;
+	text-align: center;
 }

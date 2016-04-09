@@ -76,40 +76,27 @@
 		<table style='margin-left:40px;margin-right:40px;' id="znamka" cellspacing="10">
 		</table>
 	</div>
-
+    
 	<!--prikaz podatkov o posamezni znamki-->
 	<div id="znamka_profil" class="tabContent">
 		<button type="button" class="btn3" id="backButton"><img src="images/nazaj.png"/></button>
-		<button type="button" class="btn3" id="imamZ_btn"><img src="images/kljukica.png"/></button>
-		<button type="button" class="btn3" id="nimamZ_btn"><img src="images/kriz.png"/></button>
-		<button type="button" class="btn3" id="odvecZ_btn"><img src="images/menjava.png"/></button>
-		<button type="button" class="btn3" id="niodvecZ_btn"><img src="images/ne-menjava.png"/></button>
-		<table style='margin-left:40px; margin-right:40px;' id="znamka_podatki">
-		</table>
-        <div id="odvec_znamke">
-            <table style='margin-left:40px;margin-right:40px;' id="odvec" cellspacing="10">
-		      </table>
+		<button type="button" class="btn3" id="imamZ_btn" title="Znamko že imam"><img src="images/kljukica.png"/></button>
+		<button type="button" class="btn3" id="nimamZ_btn" title="Znamke nimam"><img src="images/kriz.png"/></button>
+		<button type="button" class="btn3" id="odvecZ_btn" title="Znamko imam odveč in jo želim dati v menjavo"><img src="images/menjava.png"/></button>
+		<button type="button" class="btn3" id="niodvecZ_btn" title="Znamke nimam odveč in je ne želim nuditi v menjavi"><img src="images/ne-menjava.png"/></button>
+		<button type="button" class="btn3" id="osebeOdvecButton" title="Prikaži ljudi, ki imajo to znamko odveč"><img src="images/osebe.png"/></button>
+	
+		<div id="odvec_znamke" style="margin-top:20px; margin-left:20px;">
+            <table id="odvec"></table>
         </div>
+		<table style='margin-left:40px; margin-right:40px;' id="znamka_podatki"></table>
 	</div>
 	
 	<!--prikaz zamenjava znamk-->
 	<div id="znamka_zamenjava" class="tabContent">
 		<button type="button" class="btn3" id="backButton1"><img src="images/nazaj.png"/></button>
-		<div style="box-shadow: -5px 5px 5px -5px #333, 5px 5px 5px -5px #333;border-radius: 5px;margin-bottom:70px; margin-top:60px; margin-left:0px; width:800px; height:730px; background-color: #333;">
-			<h1>Zamenjava znamk med uporabniki: </h1>
-			<input id="uporabnik1" name="uporabnik1" type="text" placeholder="Uporabnik1" style="font-family: comforta;margin-left:56px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" />
-			<input id="uporabnik2" name="uporabnik2"  type="text" placeholder="Uporabnik2" style="font-family: comforta;margin-top:25px;margin-left:37px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" />
-			<label id="ponudba_label">Ponudba znamk za zamenjavo:</label>
-			<select id="ponudba_znamka"></select>
-			<label id="zamenjava_label">Znamka za zamenjavo: </label>
-			<select id="zamenjava_znamka">
-			</select>
-			<textarea id="sporocilo" placeholder="Vnesi sporočilo..." style="font-family: comforta;margin-top:25px;margin-left:56px;text-align:left;padding:10px;width:663px; height:200px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9"></textarea>
-			<label id="cas_label">Čas oddaje: </label>
-			<input id="timestamp1" name="timestamp1" type="text" placeholder="Vnesi čas..." style="font-family: comforta;margin-top:25px;margin-left:130px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" />
-			<button style="margin-top:35px;margin-left:235px;" type="button" id="naredi_zamenjavo" name="submit" class="btn">Naredi zamenjavo</button>
-		</div>
-	</div>
+		<table style='margin-left:40px; margin-right:40px; width:720px;' id="chat_content" cellpadding="10" cellspacing="0"></table>
+	</div> 
 
     <div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="false"></div>
 
@@ -117,20 +104,20 @@
 	<div id="prijava_tabcontent" class="tabContent">
 		<div style="box-shadow: -5px 5px 5px -5px #333, 5px 5px 5px -5px #333;border-radius: 5px;margin-bottom:70px; margin-top:70px; margin-left:200px; width:400px; height:500px; background-color: #333;">
 			<h1>PRIJAVA</h1>
-                        <input type="text" placeholder="Uporabniško ime*" style="font-family: comforta;margin-left:37px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" />
-                        <input type="password" placeholder="Geslo*" style="font-family: comforta;margin-top:25px;margin-left:37px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" />
-                        <button type="button" class="btn">PRIJAVA</button>
-                        <h3>ali: </h3>
-                        <button type="button" class="btn1">Google</button>
-                        <?php echo '<a href="' . $loginUrl . '"><button type="button" class="btn2" >Facebook</button></a>';?>
+            <input type="text" placeholder="Uporabniško ime*" style="font-family: comforta;margin-left:37px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" />
+            <input type="password" placeholder="Geslo*" style="font-family: comforta;margin-top:25px;margin-left:37px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" />
+            <button type="button" class="btn">PRIJAVA</button>
+            <h3>ali: </h3>
+            <button type="button" class="btn1">Google</button>
+            <?php echo '<a href="' . $loginUrl . '"><button type="button" class="btn2" >Facebook</button></a>';?>
 		</div>
 	</div>
 
     <!--odjava-->
 	<div id="odjava_tabcontent" class="tabContent">
-            <div style="box-shadow: -5px 5px 5px -5px #333, 5px 5px 5px -5px #333;border-radius: 5px;margin-bottom:70px; margin-top:70px; margin-left:200px; width:400px; height:100px; background-color: #333;">
-                <a href="logout.php?logout"><button type="button" class="btn">LOGOUT</button></a>
-            </div>
+        <div style="box-shadow: -5px 5px 5px -5px #333, 5px 5px 5px -5px #333;border-radius: 5px;margin-bottom:70px; margin-top:70px; margin-left:200px; width:400px; height:100px; background-color: #333;">
+            <a href="logout.php?logout"><button type="button" class="btn">LOGOUT</button></a>
+        </div>
 	</div>
 
 	<!--registracija-->

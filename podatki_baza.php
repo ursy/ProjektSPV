@@ -229,36 +229,35 @@ if ($_POST['method'] == "z_podatki")
 if ($_POST['method'] == "odvec_z")
 {
     $id =  $_POST['znamka_id'];
-
-	$q = "SELECT * FROM znamka_uporabnik WHERE ID_znamka='".$id."' AND odvec=1";
+    $user_id =  $_POST['user_id'];
+	$q = "SELECT * FROM znamka_uporabnik WHERE ID_znamka='$id' AND odvec=1 AND ID_uporabnik != '$user_id'";
 
 	$result = mysqli_query($conn, $q);
     if(mysqli_num_rows($result) > 0){
         echo "<tr id='$id' class='od_z'>";
-        echo "<td colspan='3'><h1 style='color: #333;'>To znamko ima odveč...</h1></td>";
+        echo "<td colspan='3'><span style='font-family: comforta;font-size:20px; color: #119091; vertical-align:text-top;'>To znamko ima odveč...</span></td>";
         echo "</tr>";
     }
 
 	while ($row = mysqli_fetch_assoc($result))
 	{
         $id_uporabnik = $row["ID_uporabnik"];
-        $sql = "SELECT * FROM users WHERE id='".$id_uporabnik."'";
+        //if ($id_uporabnik != $user_id) {
+        $sql = "SELECT * FROM users WHERE id='$id_uporabnik'";
         $result2 = mysqli_query($conn, $sql);
         while ($row2 = mysqli_fetch_assoc($result2))
 	    {
-            echo "<tr id='$id' class='od_z'>";
+            echo "<tr class='od_z' id='$id_uporabnik'>";
             $str = "";
-            $str .= "<td><img style='box-shadow: 0px 0px 10px black;' src='". $row2['picture'] . "'/></td>";
-            $str .= "<td>";
-            $str .= "<span style='font-family: comforta;font-size:26px; color: #333;'>" . $row2["fname"] . "</span><br>";
+            $str .= "<td><img style='width:25px; height:25px;' src='". $row2['picture'] . "'/></td>";
+            $str .= "<td><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row2["fname"] . "</span><br>";
             $str .= "</td>";
-            $str .= "<td><button type='button' class='ponudi'>Ponudi ponudbo</button></td>";
+            $str .= "<td ><button type='button' class='btn3' id='ponudiButton' title='Pošlji sporočilo'><img src='images/sporocilo.png'/></td>";
             echo ($str);
             echo "</tr>";
         }
+        //}
 	}
-
-
 }
 
 //pridobivanje uporabnikovega profila
@@ -304,4 +303,92 @@ if ($_POST['method'] == "user_podatki")
 		echo ($str);
 	}
 }
+
+//odpri chat z uporabnikom
+if ($_POST['method'] == "odpri_chat")
+{
+	$my_user_id =  $_POST['my_user_id'];
+	$other_user_id =  $_POST['other_user_id'];
+	$znamka_id =  $_POST['znamka_id'];
+	#echo $id;
+	
+    $sql = "SELECT * FROM users WHERE id='$other_user_id'";
+    $result2 = mysqli_query($conn, $sql);
+    $str = "";
+    while ($row2 = mysqli_fetch_assoc($result2))
+    {	
+	    $fname = $row2["fname"];
+	    $lname = $row2["lname"];
+	    
+	    echo "<tr><td colspan='4'><span style='font-family: comforta; font-size:22px; color: #119091; vertical-align:text-top; text-align:center;'>Pogovor: $fname $lname</span></td></tr>";			
+        break;
+    }
+	
+	$q = "SELECT ID_Chat FROM Chat WHERE ((ID_User1 = '$my_user_id' AND ID_User2 = '$other_user_id') OR (ID_User2 = '$my_user_id' AND ID_User1 = '$other_user_id')) AND ID_znamka = '$znamka_id' AND chat_status = 'running'";
+
+	$result = mysqli_query($conn, $q);
+	$chat_id = 0;
+	//CHAT OBSTAJA
+	if(mysqli_num_rows($result) > 0){
+		while ($row = mysqli_fetch_assoc($result))
+		{
+			// PRIKAŽI CHAT
+			$chat_id = $row['ID_Chat'];
+			$q = "SELECT * FROM chatContent WHERE ID_chat = $chat_id ORDER BY Cas_posiljanja ASC";
+			$result = mysqli_query($conn, $q);
+			while ($row = mysqli_fetch_assoc($result))
+			{
+				$id_posiljatelj = $row['ID_posiljatelj'];
+				$cas_posiljanja = $row['Cas_posiljanja'];
+				$sporocilo = $row['Sporocilo'];
+				
+				$chat = "";
+				$color = "#333";
+				$background = "#f1f4f4";
+				if ($id_posiljatelj == $my_user_id) {
+					$color = "#5e5e5e";
+					$background = "white";
+				}
+				$chat .= "<tr style='background-color:$background'>";
+				$sql = "SELECT * FROM users WHERE id='$id_posiljatelj'";
+		        $result2 = mysqli_query($conn, $sql);
+		        $str = "";
+		        while ($row2 = mysqli_fetch_assoc($result2))
+			    {			
+					$str = "<td><img style='width:25px; height:25px;' src='". $row2['picture'] . "'/></td>";
+					$str .= "<td><span style='font-family: comforta;font-size:14px; color: $color;'>" . $row2["fname"] . "</span><br></td>";
+					$chat .= $str . "<td><span style='font-family: comforta;font-size:14px; color: $color;'>'$sporocilo'</span></td><td><span style='font-family: comforta;font-size:10px; color: $color;'>('$cas_posiljanja')</span></td></tr>";				
+		            break;
+		        }
+		        echo($chat);
+			}
+			break;
+		}
+	}
+	//CHAT NE OBSTAJA
+	else {
+		$q = "INSERT INTO Chat (ID_User1, ID_User2, ID_znamka, chat_status) VALUES ('$my_user_id', '$other_user_id', '$znamka_id', 'running')";
+		if (mysqli_query($conn, $query)) {
+	        $q = "SELECT ID_Chat FROM Chat WHERE (ID_User1 = '$my_user_id' AND ID_User2 = '$other_user_id') AND ID_znamka = '$znamka_id' AND chat_status = 'running'";
+			$result = mysqli_query($conn, $q);
+			while ($row = mysqli_fetch_assoc($result))
+			{
+				$chat_id = $row['ID_Chat'];
+				break;
+			}
+	    } else {
+	        echo "Error";
+	    }
+	}	
+	
+	//$chat_id
+	echo '<tr><td colspan="3"><textarea class="message_input" id="'.$chat_id.'" type="text" placeholder="Vaše sporočilo..." style="font-family: comforta; text-align:left; height:100px; font-size:16px; border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9; width:100%;"/></td><td><button type="button" class="btn3" id="sendButton"><img src="images/poslji.png"/></button></td></tr>';
+}
+
+//pošlji sporočilo uporabniku
+if ($_POST['method'] == "poslji_sporocilo")
+{
+	$q = "INSERT INTO chatContent (ID_chat, ID_posiljatelj, Cas_posiljanja, Sporocilo) VALUES ('$chat_id', '$my_user_id', , )";
+}
+
 ?>

@@ -32,8 +32,8 @@ $(document).ready(function() {
 //prikaz podatkov o posamezni znamki
 $(document).on("mousedown", "td.znamke_prikaz", function() {
 	var id = $(this).attr("ID");
+	$("#odvec").hide();
 	znamka_podatki(id, "");
-    odvec_znamka(id);
 	get_znamka_user (id, userID);
 });
 
@@ -51,10 +51,14 @@ $(document).on("mousedown", "#backButton1", function() {
 	$('#znamka_profil').show();
 });
 
-//ponudi ponudba clicked
-$(document).on("mousedown", "button.ponudi", function() {
+//zacni menjavo clicked
+$(document).on("mousedown", "#ponudiButton", function() {
 	$('#znamka_profil').hide();
-	$('#znamka_zamenjava').show();
+	var id_znamke = $("tr.podatki").attr("id");
+	//alert(id_znamke);
+    var other_user_id = $(this).closest('tr').attr('id'); // table row ID 
+    //$('#znamka_zamenjava').show();
+	odpri_chat(userID, other_user_id, id_znamke);
 });
 
 //imam znamko clicked
@@ -79,6 +83,17 @@ $(document).on("mousedown", "#odvecZ_btn", function() {
 $(document).on("mousedown", "#niodvecZ_btn", function() {
 	var id_znamke = $("tr.podatki").attr("id");
 	oznaci_znamka_user (id_znamke, userID, "odvec");
+});
+
+//ni odvec znamka clicked
+$(document).on("mousedown", "#osebeOdvecButton", function() {
+	if ($("#odvec").is(":visible") == false) {
+		var id_znamke = $("tr.podatki").attr("id");
+		odvec_znamka(id_znamke, userID);
+	}
+	else {
+		$("#odvec").hide();
+	}
 });
 
 //uredi profil clicked
@@ -189,7 +204,7 @@ function znamka_podatki (id, naslov) {
 	$('#znamka_profil').show();
 }
 
-function odvec_znamka (id) {
+function odvec_znamka (id, id_user) {
 	$('#odvec').html("");
 	$.ajax({
 		type: "POST",
@@ -197,12 +212,14 @@ function odvec_znamka (id) {
 		data:
 		{
 			znamka_id: id,
+			user_id: id_user,
 			method: "odvec_z"
 		},
 		cache: false,
 		success: function (result)
 		{
             $('#odvec').html(result);
+            $("#odvec").show();
 		},
 		error: function (result)
 		{
@@ -343,6 +360,32 @@ function change_user_data(id) {
 		{
 			$('#uporabnik_tabcontent').show();
 			$('#edit_uporabnik_tabcontent').hide();
+		},
+		error: function (result)
+		{
+			alert(result);
+		}
+	});
+}
+
+function odpri_chat(my_user_id, other_user_id, znamka_id) {
+	$('#chat_content').html("");
+	$.ajax({
+		type: "POST",
+		url: "podatki_baza.php",
+		data:
+		{
+			my_user_id: my_user_id,
+			other_user_id: other_user_id,
+			znamka_id: znamka_id,
+			method: "odpri_chat"
+		},
+		cache: false,
+		success: function (result)
+		{
+			//alert(result);
+			$('#chat_content').html(result);
+			$('#znamka_zamenjava').show();
 		},
 		error: function (result)
 		{
