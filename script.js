@@ -1,4 +1,4 @@
-userID = 18;
+//userID = 18;
 //prikaz vsebina tab - glavna stran...
 function prikazi(elementi) {
     var tabContents = document.getElementsByClassName('tabContent');
@@ -117,6 +117,16 @@ $(document).on("mousedown", "#potrdiMenjavoB", function() {
 $(document).on("mousedown", "#prekliciMenjavoB", function() {
 	var chat_id = $("textarea.message_input").attr("id");
 	preklici_menjavo(chat_id, userID);	
+});
+
+//ogled uporabnikovih znamk
+$(document).on("mousedown", "#moje_znamke_btn", function() {
+		
+});
+
+//ogled uporabnikovih chatov
+$(document).on("mousedown", "#moje_menjave_btn", function() {
+
 });
 
 //uredi profil clicked
@@ -360,7 +370,7 @@ function get_user(id) {
 			else if (result[0] == "1")
 				$('#editProfileButton').show();
 			*/
-			alert(result )
+			//alert(result )
             $('#user_podatki').html(result.substr(0));
 		},
 		error: function (result)

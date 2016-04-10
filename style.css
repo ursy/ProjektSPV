@@ -422,3 +422,10 @@ input:focus
 	padding: 5px;
 	text-align: center;
 }
+
+#moje_menjave_btn, #moje_znamke_btn {
+	font-size: 15px;
+	margin-top: 0px;
+	margin-left: 0px;
+	height: 30px;
+}

@@ -298,7 +298,7 @@ if ($_POST['method'] == "user_podatki")
 			$str .= "<span style='font-family: comforta;font-size:14px; color: #333;'><span style='color:#119091;'>Spol: </span><span class='user_sex' id='".$row["gender"]. "'>". $spol ."</span></span><hr style='margin-left:0px;margin-right:0px;'>";
 		}
 
-		$str .= "</td></tr>";
+		$str .= "<button type='button' class='btn3' id='moje_znamke_btn'>Moje znamke</button><button type='button' class='btn3' id='moje_menjave_btn'>Moje menjave</button><hr style='margin-left:0px;margin-right:0px;'></td></tr>";
 
 		echo ($str);
 	}
