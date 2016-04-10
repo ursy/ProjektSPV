@@ -310,7 +310,26 @@ if ($_POST['method'] == "odpri_chat")
 	$my_user_id =  $_POST['my_user_id'];
 	$other_user_id =  $_POST['other_user_id'];
 	$znamka_id =  $_POST['znamka_id'];
+	$chat_id = $_POST['chat_id'];
 	#echo $id;
+	
+	if ($chat_id != 0) {
+		$sql = "SELECT * FROM Chat WHERE ID_Chat='$chat_id'";
+	    $result2 = mysqli_query($conn, $sql);
+	    while ($row2 = mysqli_fetch_assoc($result2))
+	    {	
+		    $id1 = $row2["ID_User1"];
+		    $id2 = $row2["ID_User2"];
+		    if ($id1 != $my_user_id) {
+			    $other_user_id = $id1;
+		    }
+		    else {
+			    $other_user_id = $id2;
+		    }
+		    $znamka_id = $row2["ID_znamka"];			
+	        break;
+	    }
+	}
 	
     $sql = "SELECT * FROM users WHERE id='$other_user_id'";
     $result2 = mysqli_query($conn, $sql);
@@ -318,22 +337,31 @@ if ($_POST['method'] == "odpri_chat")
     while ($row2 = mysqli_fetch_assoc($result2))
     {	
 	    $fname = $row2["fname"];
-	    $lname = $row2["lname"];
-	    
-	    echo "<tr><td colspan='4'><span style='font-family: comforta; font-size:22px; color: #119091; vertical-align:text-top; text-align:center;'>Pogovor: $fname $lname</span></td></tr>";			
+	    $lname = $row2["lname"];			
         break;
     }
 	
-	$q = "SELECT ID_Chat FROM Chat WHERE ((ID_User1 = '$my_user_id' AND ID_User2 = '$other_user_id') OR (ID_User2 = '$my_user_id' AND ID_User1 = '$other_user_id')) AND ID_znamka = '$znamka_id' AND chat_status = 'running'";
+	$q = "SELECT ID_Chat, chat_status, person_done_ID FROM Chat WHERE ((ID_User1 = '$my_user_id' AND ID_User2 = '$other_user_id') OR (ID_User2 = '$my_user_id' AND ID_User1 = '$other_user_id')) AND ID_znamka = '$znamka_id' AND (chat_status = 'running' OR chat_status='done1')";
 
 	$result = mysqli_query($conn, $q);
 	$chat_id = 0;
+	$chat_status = 'running';
+	$person_done = 0;
+	
 	//CHAT OBSTAJA
 	if(mysqli_num_rows($result) > 0){
 		while ($row = mysqli_fetch_assoc($result))
 		{
 			// PRIKAŽI CHAT
 			$chat_id = $row['ID_Chat'];
+			$chat_status = $row['chat_status'];
+			$person_done_ID = $row['person_done_ID'];
+			if ($person_done_ID == $my_user_id){
+				$person_done = 1;
+			}
+			
+			echo "<tr id='$chat_id' class='chat_title'><td colspan='4'><span style='font-family: comforta; font-size:22px; color: #119091; vertical-align:text-top; text-align:center;'>Pogovor: $fname $lname</span></td></tr>";
+			
 			$q = "SELECT * FROM chatContent WHERE ID_chat = $chat_id ORDER BY Cas_posiljanja ASC";
 			$result = mysqli_query($conn, $q);
 			while ($row = mysqli_fetch_assoc($result))
@@ -357,7 +385,7 @@ if ($_POST['method'] == "odpri_chat")
 			    {			
 					$str = "<td><img style='width:25px; height:25px;' src='". $row2['picture'] . "'/></td>";
 					$str .= "<td><span style='font-family: comforta;font-size:14px; color: $color;'>" . $row2["fname"] . "</span><br></td>";
-					$chat .= $str . "<td><span style='font-family: comforta;font-size:14px; color: $color;'>'$sporocilo'</span></td><td><span style='font-family: comforta;font-size:10px; color: $color;'>('$cas_posiljanja')</span></td></tr>";				
+					$chat .= $str . "<td><span style='font-family: comforta;font-size:14px; color: $color; width:100%;'>$sporocilo</span></td><td><span style='font-family: comforta;font-size:10px; color: $color;'>($cas_posiljanja)</span></td></tr>";				
 		            break;
 		        }
 		        echo($chat);
@@ -368,12 +396,13 @@ if ($_POST['method'] == "odpri_chat")
 	//CHAT NE OBSTAJA
 	else {
 		$q = "INSERT INTO Chat (ID_User1, ID_User2, ID_znamka, chat_status) VALUES ('$my_user_id', '$other_user_id', '$znamka_id', 'running')";
-		if (mysqli_query($conn, $query)) {
+		if (mysqli_query($conn, $q)) {
 	        $q = "SELECT ID_Chat FROM Chat WHERE (ID_User1 = '$my_user_id' AND ID_User2 = '$other_user_id') AND ID_znamka = '$znamka_id' AND chat_status = 'running'";
 			$result = mysqli_query($conn, $q);
 			while ($row = mysqli_fetch_assoc($result))
 			{
 				$chat_id = $row['ID_Chat'];
+				echo "<tr id='$chat_id' class='chat_title'><td colspan='4'><span style='font-family: comforta; font-size:22px; color: #119091; vertical-align:text-top; text-align:center;'>Pogovor: $fname $lname</span></td></tr>";
 				break;
 			}
 	    } else {
@@ -382,13 +411,69 @@ if ($_POST['method'] == "odpri_chat")
 	}	
 	
 	//$chat_id
-	echo '<tr><td colspan="3"><textarea class="message_input" id="'.$chat_id.'" type="text" placeholder="Vaše sporočilo..." style="font-family: comforta; text-align:left; height:100px; font-size:16px; border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9; width:100%;"/></td><td><button type="button" class="btn3" id="sendButton"><img src="images/poslji.png"/></button></td></tr>';
+	if ($chat_status == 'running') {
+		echo '<tr><td colspan="3"><textarea class="message_input" id="'.$chat_id.'" type="text" placeholder="Vaše sporočilo..." style="font-family: comforta; text-align:left; height:100px; font-size:16px; border:1px solid #119091; background-color:#f1f4f4; color: black; width:100%;"/></td><td><button type="button" class="btn3" id="sendButton"><img src="images/poslji.png"/></button></td></tr>';
+	}
+	echo($person_done);
 }
 
 //pošlji sporočilo uporabniku
 if ($_POST['method'] == "poslji_sporocilo")
 {
-	$q = "INSERT INTO chatContent (ID_chat, ID_posiljatelj, Cas_posiljanja, Sporocilo) VALUES ('$chat_id', '$my_user_id', , )";
+	$my_user_id =  $_POST['my_user_id'];
+	$chat_id = $_POST['chat_id'];
+	$msg = $_POST['msg'];
+	$q = "INSERT INTO chatContent (ID_chat, ID_posiljatelj, Sporocilo) VALUES ('$chat_id', '$my_user_id', '$msg')";
+	if (mysqli_query($conn, $q)) {
+		echo("ok");
+	}
+	else{
+		echo "error";
+	}
 }
+
+if ($_POST['method'] == "preklici_menjavo")
+{
+	$chat_id = $_POST['chat_id'];
+	$my_user_id =  $_POST['my_user_id'];
+	$q = "UPDATE Chat SET chat_status = 'canceled', person_done_ID = '$my_user_id' WHERE ID_Chat = '$chat_id'";
+	if (mysqli_query($conn, $q)) {
+		echo("ok");
+	}
+	else{
+		echo "error";
+	}
+}
+
+if ($_POST['method'] == "potrdi_menjavo")
+{
+	$chat_id = $_POST['chat_id'];
+	$my_user_id =  $_POST['my_user_id'];
+	$q = "UPDATE Chat SET chat_status = 'done2' WHERE ID_Chat = '$chat_id' AND chat_status='done1'";
+	if (mysqli_query($conn, $q)) {		
+		$q = "UPDATE Chat SET chat_status = 'done1', person_done_ID = '$my_user_id'  WHERE ID_Chat = '$chat_id' AND chat_status='running'";
+		if (mysqli_query($conn, $q)) {
+			$q = "SELECT * FROM Chat WHERE ID_Chat = '$chat_id'";
+			$result = mysqli_query($conn, $q);
+			while ($row = mysqli_fetch_assoc($result))
+			{
+				$status = $row['chat_status'];
+				echo $status;
+				
+				$u2 = $row['ID_User2'];
+				$znamka_id = $row['ID_znamka'];
+				$q = "UPDATE znamka_uporabnik SET odvec = 0 WHERE ID_uporabnik = '$u2' AND ID_znamka='$znamka_id'";
+				mysqli_query($conn, $q);
+			}
+		}
+		else {
+			echo("error");
+		}
+	}
+	else{
+		echo "error";
+	}
+}
+
 
 ?>

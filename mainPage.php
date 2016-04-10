@@ -95,7 +95,9 @@
 	<!--prikaz zamenjava znamk-->
 	<div id="znamka_zamenjava" class="tabContent">
 		<button type="button" class="btn3" id="backButton1"><img src="images/nazaj.png"/></button>
-		<table style='margin-left:40px; margin-right:40px; width:720px;' id="chat_content" cellpadding="10" cellspacing="0"></table>
+		<button type="button" class="btn3" id="potrdiMenjavoB" title="Potrdi menjavo"><img src="images/kljukica.png"/></button>
+		<button type="button" class="btn3" id="prekliciMenjavoB" title="Prekliči menjavo"><img src="images/kriz.png"/></button>
+		<table style='margin-left:40px; margin-right:40px; width:100% - 80px;' id="chat_content" cellpadding="10" cellspacing="0"></table>
 	</div> 
 
     <div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="false"></div>

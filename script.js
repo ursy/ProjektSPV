@@ -1,4 +1,4 @@
-userID = 15;
+userID = 18;
 //prikaz vsebina tab - glavna stran...
 function prikazi(elementi) {
     var tabContents = document.getElementsByClassName('tabContent');
@@ -48,6 +48,8 @@ $(document).on("mousedown", "#backButton", function() {
 //back button - zamenjava znamk
 $(document).on("mousedown", "#backButton1", function() {
 	$('#znamka_zamenjava').hide();
+	$("#potrdiMenjavoB").show();
+	$("#prekliciMenjavoB").show();
 	$('#znamka_profil').show();
 });
 
@@ -58,7 +60,7 @@ $(document).on("mousedown", "#ponudiButton", function() {
 	//alert(id_znamke);
     var other_user_id = $(this).closest('tr').attr('id'); // table row ID 
     //$('#znamka_zamenjava').show();
-	odpri_chat(userID, other_user_id, id_znamke);
+	odpri_chat(userID, other_user_id, id_znamke, 0);
 });
 
 //imam znamko clicked
@@ -85,7 +87,7 @@ $(document).on("mousedown", "#niodvecZ_btn", function() {
 	oznaci_znamka_user (id_znamke, userID, "odvec");
 });
 
-//ni odvec znamka clicked
+//prikazi ljudi ki imajo znamko odvec
 $(document).on("mousedown", "#osebeOdvecButton", function() {
 	if ($("#odvec").is(":visible") == false) {
 		var id_znamke = $("tr.podatki").attr("id");
@@ -94,6 +96,27 @@ $(document).on("mousedown", "#osebeOdvecButton", function() {
 	else {
 		$("#odvec").hide();
 	}
+});
+
+//send button clicked
+$(document).on("mousedown", "#sendButton", function() {
+	var chat_id = $("textarea.message_input").attr("id");
+	var msg = $('textarea.message_input').val();
+	if (msg != "")
+		poslji_sporocilo(userID, chat_id, msg);	
+});
+
+//potrdi menjavo button clicked
+$(document).on("mousedown", "#potrdiMenjavoB", function() {
+	var chat_id = $("tr.chat_title").attr("id");
+	//$("textarea.message_input").attr("id");
+	potrdi_menjavo(chat_id, userID);	
+});
+
+//preklici menjavo button clicked
+$(document).on("mousedown", "#prekliciMenjavoB", function() {
+	var chat_id = $("textarea.message_input").attr("id");
+	preklici_menjavo(chat_id, userID);	
 });
 
 //uredi profil clicked
@@ -218,8 +241,10 @@ function odvec_znamka (id, id_user) {
 		cache: false,
 		success: function (result)
 		{
-            $('#odvec').html(result);
-            $("#odvec").show();
+			if (result != "") {
+            	$('#odvec').html(result);
+				$("#odvec").show();
+            }
 		},
 		error: function (result)
 		{
@@ -368,8 +393,8 @@ function change_user_data(id) {
 	});
 }
 
-function odpri_chat(my_user_id, other_user_id, znamka_id) {
-	$('#chat_content').html("");
+function odpri_chat(my_user_id, other_user_id, znamka_id, chat_id) {
+	//$('#chat_content').html("");
 	$.ajax({
 		type: "POST",
 		url: "podatki_baza.php",
@@ -378,14 +403,96 @@ function odpri_chat(my_user_id, other_user_id, znamka_id) {
 			my_user_id: my_user_id,
 			other_user_id: other_user_id,
 			znamka_id: znamka_id,
+			chat_id: chat_id,
 			method: "odpri_chat"
 		},
 		cache: false,
 		success: function (result)
 		{
-			//alert(result);
+			if (result[result.length-1] == "1") {
+				$("#potrdiMenjavoB").hide();
+				$("#prekliciMenjavoB").hide();
+			}
+			var res = result.substr(result.length-2, 1);
 			$('#chat_content').html(result);
 			$('#znamka_zamenjava').show();
+		},
+		error: function (result)
+		{
+			alert(result);
+		}
+	});
+}
+
+function poslji_sporocilo(my_user_id, chat_id, msg) {
+	$.ajax({
+		type: "POST",
+		url: "podatki_baza.php",
+		data:
+		{
+			my_user_id: my_user_id,
+			chat_id: chat_id,
+			msg: msg,
+			method: "poslji_sporocilo"
+		},
+		cache: false,
+		success: function (result)
+		{
+			odpri_chat(my_user_id, 0, 0, chat_id);
+			//alert(result);
+		},
+		error: function (result)
+		{
+			alert(result);
+		}
+	});
+}
+
+function potrdi_menjavo(chat_id, my_user_id) {
+	$.ajax({
+		type: "POST",
+		url: "podatki_baza.php",
+		data:
+		{
+			chat_id: chat_id,
+			my_user_id: my_user_id,
+			method: "potrdi_menjavo"
+		},
+		cache: false,
+		success: function (result)
+		{
+			if (result == "done1"){
+				odpri_chat(my_user_id, 0, 0, chat_id);
+			}
+			else {
+				$('#znamka_zamenjava').hide();
+				$("#odvec").hide();
+				$('#znamka_profil').show();
+			}
+		},
+		error: function (result)
+		{
+			alert(result);
+		}
+	});
+}
+
+function preklici_menjavo(chat_id, my_user_id) {
+	$.ajax({
+		type: "POST",
+		url: "podatki_baza.php",
+		data:
+		{
+			chat_id: chat_id,
+			my_user_id: my_user_id,
+			method: "preklici_menjavo"
+		},
+		cache: false,
+		success: function (result)
+		{
+			$('#znamka_zamenjava').hide();
+			$('#znamka_profil').show();
+			//alert(result);
 		},
 		error: function (result)
 		{
