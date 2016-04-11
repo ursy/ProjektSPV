@@ -22,6 +22,7 @@ function prikazi(elementi) {
 
 //prikaz znamk ko spremenis izbrano leto
 $(document).ready(function() {
+    $("#menjave").hide();
 	get_znamke($('select').val());
     $('select').change(function(){
         var val = $(this).val();
@@ -133,7 +134,12 @@ $(document).on("mousedown", "#moje_znamke_btn", function() {
 
 //ogled uporabnikovih chatov
 $(document).on("mousedown", "#moje_menjave_btn", function() {
-
+    if ($("#menjave").is(":visible") == false) {
+		menjave();
+	}
+	else {
+		$("#menjave").hide();
+	}
 });
 
 //uredi profil clicked
@@ -386,6 +392,30 @@ function get_user(id) {
 		}
 	});
 	$('#user_podatki').show();
+}
+
+function menjave () {
+	$('#menjave').html("");
+	$.ajax({
+		type: "POST",
+		url: "podatki_baza.php",
+		data:
+		{
+			method: "get_menjave"
+		},
+		cache: false,
+		success: function (result)
+		{
+			if (result != "") {
+            	$('#menjave').html(result);
+				$("#menjave").show();
+            }
+		},
+		error: function (result)
+		{
+			console.log(result);
+		}
+	});
 }
 
 function change_user_data(id) {

@@ -2,6 +2,7 @@
 error_reporting(-1);
 ini_set('display_errors', 'On');
 include_once 'connToDatabase.php';
+session_start();
 
 //vstavljanje nove znamke
 if ($_POST['method'] == "vstavi_znamko")
@@ -231,33 +232,98 @@ if ($_POST['method'] == "odvec_z")
     $id =  $_POST['znamka_id'];
     $user_id =  $_POST['user_id'];
 	$q = "SELECT * FROM znamka_uporabnik WHERE ID_znamka='$id' AND odvec=1 AND ID_uporabnik != '$user_id'";
-
-	$result = mysqli_query($conn, $q);
-    if(mysqli_num_rows($result) > 0){
-        echo "<tr id='$id' class='od_z'>";
-        echo "<td colspan='3'><span style='font-family: comforta;font-size:20px; color: #119091; vertical-align:text-top;'>To znamko ima odveč...</span></td>";
-        echo "</tr>";
-    }
-
-	while ($row = mysqli_fetch_assoc($result))
-	{
-        $id_uporabnik = $row["ID_uporabnik"];
-        //if ($id_uporabnik != $user_id) {
-        $sql = "SELECT * FROM users WHERE id='$id_uporabnik'";
-        $result2 = mysqli_query($conn, $sql);
-        while ($row2 = mysqli_fetch_assoc($result2))
-	    {
-            echo "<tr class='od_z' id='$id_uporabnik'>";
-            $str = "";
-            $str .= "<td><img style='width:25px; height:25px;' src='". $row2['picture'] . "'/></td>";
-            $str .= "<td><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row2["fname"] . "</span><br>";
-            $str .= "</td>";
-            $str .= "<td ><button type='button' class='btn3' id='ponudiButton' title='Pošlji sporočilo'><img src='images/sporocilo.png'/></td>";
-            echo ($str);
+    if(isset($_SESSION['user_id'])){
+        $result = mysqli_query($conn, $q);
+        if(mysqli_num_rows($result) > 0){
+            echo "<tr id='$id' class='od_z'>";
+            echo "<td colspan='3'><span style='font-family: comforta;font-size:20px; color: #119091; vertical-align:text-top;'>To znamko ima odveč...</span></td>";
+            echo "</tr>";
+            while ($row = mysqli_fetch_assoc($result))
+            {
+                $id_uporabnik = $row["ID_uporabnik"];
+                //if ($id_uporabnik != $user_id) {
+                $sql = "SELECT * FROM users WHERE id='$id_uporabnik'";
+                $result2 = mysqli_query($conn, $sql);
+                while ($row2 = mysqli_fetch_assoc($result2))
+                {
+                    echo "<tr class='od_z' id='$id_uporabnik'>";
+                    $str = "";
+                    $str .= "<td><img style='width:25px; height:25px;' src='". $row2['picture'] . "'/></td>";
+                    $str .= "<td><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row2["fname"] . "</span><br>";
+                    $str .= "</td>";
+                    $str .= "<td ><button type='button' class='btn3' id='ponudiButton' title='Pošlji sporočilo'><img src='images/sporocilo.png'/></td>";
+                    echo ($str);
+                    echo "</tr>";
+                }
+            }
+        }
+        else{
+            echo "<tr>";
+            echo "<td colspan='3'><span style='font-family: comforta;font-size:20px; color: #119091; vertical-align:text-top;'>Te znamke nima nihče odveč...</span></td>";
             echo "</tr>";
         }
-        //}
-	}
+    }
+    else{
+        echo "<tr>";
+        echo "<td colspan='3'><span style='font-family: comforta;font-size:20px; color: #119091; vertical-align:text-top;'>Za to moraš biti prijavljen...</span></td>";
+        echo "</tr>";
+    }
+}
+
+//prikaz mejav v uporabniškem profilu
+if ($_POST['method'] == "get_menjave")
+{
+   if(isset($_SESSION['user_id'])){
+        $id = $_SESSION['user_id'];
+        echo $id;
+        $q = "SELECT * FROM Chat WHERE ID_User1 = '$id' OR ID_User2 = '$id' GROUP BY ID_User1, ID_User2";
+        $result = mysqli_query($conn, $q);
+         echo "<tr id='$id' class='od_z'>";
+        echo "<td colspan='3'><span style='font-family: comforta;font-size:20px; color: #119091; vertical-align:text-top;'>Zgodovina menjav</span></td>";
+        echo "</tr>";
+        while ($row = mysqli_fetch_assoc($result))
+        {
+            if($row['ID_User1'] == $id){
+                $other_user = $row['ID_User2'];
+                echo $other_user;
+                $sql = "SELECT * FROM users WHERE id='$other_user'";
+                $result2 = mysqli_query($conn, $sql);
+                while ($row2 = mysqli_fetch_assoc($result2)){
+                    echo "<tr class='od_z' id='$other_user'>";
+                    $str = "";
+                    $str .= "<td><img style='width:25px; height:25px;' src='". $row2['picture'] . "'/></td>";
+                    $str .= "<td><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row2["fname"] . "</span><br>";
+                    $str .= "</td>";
+                     echo ($str);
+                    echo "</tr>";
+                }
+            }
+            else{
+                $other_user = $row['ID_User1'];
+                echo $other_user;
+                $sql = "SELECT * FROM users WHERE id='$other_user'";
+                $result2 = mysqli_query($conn, $sql);
+                while ($row2 = mysqli_fetch_assoc($result2)){
+                     echo "<tr class='od_z' id='$other_user'>";
+                    $str = "";
+                    $str .= "<td><img style='width:25px; height:25px;' src='". $row2['picture'] . "'/></td>";
+                    $str .= "<td><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row2["fname"] . "</span><br>";
+                    $str .= "</td>";
+                     echo ($str);
+                    echo "</tr>";
+                }
+            }
+            /*$id_chat = $row['ID_Chat'];
+            $sql = "SELECT * FROM chatContent WHERE ID_chat='$id_chat'";
+            $result2 = mysqli_query($conn, $sql);
+            while ($row2 = mysqli_fetch_assoc($result2))
+            {
+                $str = "";
+                $str .=
+            }*/
+        }
+
+    }
 }
 
 //pridobivanje uporabnikovega profila
