@@ -48,7 +48,9 @@
 			<li id="registracija_tab" onclick="prikazi(this)" style="float:right"><a href="#registracija">Registracija</a></li>
 			<li id="glavna_tab" onclick="prikazi(this)" style="float:right"><a href="#home">Glavna stran</a></li>
 			<li id="uporabnik_tab" onclick="prikazi(this)" style="float:right"><a href="#profile">Moj profil</a></li>
-			<li id="novaznamka_tab" onclick="prikazi(this)" style="float:right"><a href="#home">Nova znamka</a></li>
+            <?php if(isset($_SESSION['admin'])==1) {  ?>
+                <li id="novaznamka_tab" onclick="prikazi(this)" style="float:right"><a href="#home">Nova znamka</a></li>
+            <?php }   ?>
 		</ul>
 	</div>
 

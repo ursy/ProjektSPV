@@ -62,6 +62,7 @@ if (isset($accessToken)) {
         $_SESSION['provider']="facebook";
         $_SESSION['user_id']=$user_data['id'];
         $_SESSION['email']=$user_data['email'];
+        $_SESSION['admin']=$user_data['isAdmin'];
     }else{
         $output = '<h3 style="color:red">Some problem occurred, please try again.</h3>';
     }

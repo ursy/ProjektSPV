@@ -29,6 +29,13 @@ $(document).ready(function() {
     });
 });
 
+$(document).on("mouseover", "td.znamke_prikaz", function() {
+    $(this).css('background-color', '#cdb7b5');
+});
+$(document).on("mouseout", "td.znamke_prikaz", function() {
+    $(this).css('background-color', 'transparent');
+});
+
 //prikaz podatkov o posamezni znamki
 $(document).on("mousedown", "td.znamke_prikaz", function() {
 	var id = $(this).attr("ID");
