@@ -276,7 +276,7 @@ if ($_POST['method'] == "get_menjave")
    if(isset($_SESSION['user_id'])){
         $id = $_SESSION['user_id'];
         echo $id;
-        $q = "SELECT * FROM Chat WHERE ID_User1 = '$id' OR ID_User2 = '$id' GROUP BY ID_User1, ID_User2";
+        $q = "SELECT * FROM Chat WHERE ID_User1 = '$id' OR ID_User2 = '$id' GROUP BY ID_znamka";
         $result = mysqli_query($conn, $q);
          echo "<tr id='$id' class='od_z'>";
         echo "<td colspan='3'><span style='font-family: comforta;font-size:20px; color: #119091; vertical-align:text-top;'>Zgodovina menjav</span></td>";
@@ -288,10 +288,14 @@ if ($_POST['method'] == "get_menjave")
                 echo $other_user;
                 $sql = "SELECT * FROM users WHERE id='$other_user'";
                 $result2 = mysqli_query($conn, $sql);
+                $id_znamke = $row["ID_znamka"];
                 while ($row2 = mysqli_fetch_assoc($result2)){
+                    $sql_znamk = "SELECT * FROM Znamka WHERE ID_znamke='$id_znamke'";
+                    $result3 = mysqli_query($conn, $sql_znamk);
+                    $row3 = mysqli_fetch_assoc($result3);
                     echo "<tr class='od_z' id='$other_user'>";
                     $str = "";
-                    $str .= "<td><img style='width:25px; height:25px;' src='". $row2['picture'] . "'/></td>";
+                    $str .= "<td><img style='width:80px; height:80px;' src='". $row3['slika'] . "'/></td>";
                     $str .= "<td><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row2["fname"] . "</span><br>";
                     $str .= "</td>";
                      echo ($str);
@@ -304,9 +308,12 @@ if ($_POST['method'] == "get_menjave")
                 $sql = "SELECT * FROM users WHERE id='$other_user'";
                 $result2 = mysqli_query($conn, $sql);
                 while ($row2 = mysqli_fetch_assoc($result2)){
-                     echo "<tr class='od_z' id='$other_user'>";
+                    $sql_znamk = "SELECT * FROM Znamka WHERE ID_znamke='$id_znamke'";
+                    $result3 = mysqli_query($conn, $sql_znamk);
+                    $row3 = mysqli_fetch_assoc($result3);
+                    echo "<tr class='od_z' id='$other_user'>";
                     $str = "";
-                    $str .= "<td><img style='width:25px; height:25px;' src='". $row2['picture'] . "'/></td>";
+                    $str .= "<td><img style='width:80px; height:80px;' src='". $row3['slika'] . "'/></td>";
                     $str .= "<td><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row2["fname"] . "</span><br>";
                     $str .= "</td>";
                      echo ($str);
