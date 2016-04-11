@@ -297,6 +297,7 @@ if ($_POST['method'] == "get_menjave")
                     $str = "";
                     $str .= "<td><img style='width:80px; height:80px;' src='". $row3['slika'] . "'/></td>";
                     $str .= "<td><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row2["fname"] . "</span><br>";
+                    $str .= "<td><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row["chat_status"] . "</span><br>";
                     $str .= "</td>";
                      echo ($str);
                     echo "</tr>";
@@ -315,6 +316,7 @@ if ($_POST['method'] == "get_menjave")
                     $str = "";
                     $str .= "<td><img style='width:80px; height:80px;' src='". $row3['slika'] . "'/></td>";
                     $str .= "<td><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row2["fname"] . "</span><br>";
+                    $str .= "<td><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row["chat_status"] . "</span><br>";
                     $str .= "</td>";
                      echo ($str);
                     echo "</tr>";
