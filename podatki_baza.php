@@ -9,10 +9,11 @@ if ($_POST['method'] == "ima_znamka")
 {
 	$id_ima = $_POST['id'];
 
-	$q = "SELECT ID_znamka FROM znamka_uporabnik WHERE ima=1 AND ID_uporabnik = ".$id_ima."";
+	$q = "SELECT distinct ID_znamka FROM znamka_uporabnik WHERE ima=1 AND ID_uporabnik = ".$id_ima."";
 
 	$result = mysqli_query($conn, $q);
 
+	echo "<tr>";
 	while ($row = mysqli_fetch_assoc($result))
 	{
 		$str = $row['ID_znamka'];
@@ -25,11 +26,12 @@ if ($_POST['method'] == "ima_znamka")
 		
 		while ($row1 = mysqli_fetch_assoc($result1))
 		{
-			echo "<td><img style='box-shadow: 0px 0px 10px black;width:50px;height:50px;' src='". $row1['slika'] . "'/></td><td ID='" .$row1["ID_znamke"]. "' style='background-color: #FBFBFB;'><span style='margin-left:10px;font-family: comforta;font-size:14px; color: #333;'>" . $row1["naslov"] . "</span></td>";
+			echo "<td ID='" .$row1["ID_znamke"]. "'><img style='box-shadow: 0px 0px 10px black;width:60px;height:60px;' src='". $row1['slika'] . "'/></td><td ID='" .$row1["ID_znamke"]. "' style='padding-left:25px;'><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row1["naslov"] . "</span></td>";
 		}
 		
 		echo "</tr>";
 	}
+	echo "</tr>";
 }
 
 //vstavljanje nove znamke

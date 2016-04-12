@@ -148,7 +148,7 @@
         <div id="menjave_znamke" style="margin-top:20px; margin-left:20px;">
             <table id="menjave"></table>
         </div>
-		<div id="ima_z_uporabnik" style="margin-top:10px; margin-left:20px;">
+		<div id="ima_z_uporabnik" style="margin-top:-50px; margin-left:303px; margin-right:90px;">
 			<table id="ima_znamka"></table>
 		</div>
 	</div>

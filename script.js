@@ -23,6 +23,7 @@ function prikazi(elementi) {
 //prikaz znamk ko spremenis izbrano leto
 $(document).ready(function() {
     $("#menjave").hide();
+	$("#ima_znamka").hide();
 	get_znamke($('select').val());
     $('select').change(function(){
         var val = $(this).val();
@@ -131,9 +132,9 @@ $(document).on("mousedown", "#prekliciMenjavoB", function() {
 $(document).on("mousedown", "#moje_znamke_btn", function() {
 	
 	var ima_znamke_id = userID;
-	$('#ima_znamka').html("");
 	
 	if ($("#ima_znamka").is(":visible") == false) {
+		$('#ima_znamka').html("");
 		$.ajax({
 			type: "POST",
 			url: "podatki_baza.php",
