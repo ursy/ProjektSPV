@@ -34,7 +34,8 @@ $(document).ready(function() {
 //prikaz podatkov o posamezni znamki
 $(document).on("mousedown", "tr.od_z", function() {
 	var id = $(this).attr("id");
-	odpri_chat(userID, id, "", "");
+	var id_znamka = $(this).attr("ID");
+	odpri_chat(userID, id, id_znamka, "");
 });
 
 $(document).on("mouseover", "td.znamke_prikaz", function() {
