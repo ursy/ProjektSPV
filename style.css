@@ -333,6 +333,8 @@ input:focus
 	height:50px;
 	margin-top: 5px;
 	margin-left: 5px;
+	cursor: pointer; 
+	cursor: hand;
 }
 .ponudi{
     -webkit-border-radius: 25;
@@ -398,6 +400,8 @@ input:focus
 	background-color: white;
 	padding-left: 4px;
 	padding-top: 4px;
+	cursor: pointer; 
+	cursor: hand;
 }
 
 #nimamZ_btn, #prekliciMenjavoB {
@@ -405,7 +409,9 @@ input:focus
 	height: 40px;
 	background-color: white;
 	padding-left: 6px;
-	padding-top: 2px;	
+	padding-top: 2px;
+	cursor: pointer; 
+	cursor: hand;	
 }
 
 #ponudiButton {

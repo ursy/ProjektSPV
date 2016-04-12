@@ -175,8 +175,8 @@ if ($_POST['method'] == "prikaz_znamke")
 			echo "<tr>";
 		}
 
-		echo "<td class='znamke_prikaz' ID='" . $row["ID_znamke"] . "'><img width='90' height='130' src='". $row['slika'] . "'/></td><br>
-		<td class='znamke_prikaz' ID='" . $row["ID_znamke"] . "' style='background-color: #FBFBFB;'><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row["naslov"] . "</span><br><br><br><br>
+		echo "<td style='cursor: pointer; cursor: hand;' class='znamke_prikaz' ID='" . $row["ID_znamke"] . "'><img width='90' height='130' src='". $row['slika'] . "'/></td><br>
+		<td style='cursor: pointer; cursor: hand;' class='znamke_prikaz' ID='" . $row["ID_znamke"] . "' style='background-color: #FBFBFB;'><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row["naslov"] . "</span><br><br><br><br>
 		<span style='font-family:comforta;font-size:14px;color: #A58600;'>".$row["datum_izdaje"]."</span>
 		</td>";
 
