@@ -57,7 +57,7 @@
 	<!--glavna stran(vsebina)-->
 	<div id="glavna_tabcontent" class="tabContent active">
 		<label>Izberite leto znamke: </label>
-		<select id="leto">
+		<select id="leto" style='cursor:pointer;cursor:hand;'>
 			<?php
 				include_once 'connToDatabase.php';
 

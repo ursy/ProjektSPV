@@ -13,7 +13,7 @@ if ($_POST['method'] == "ima_znamka")
 
 	$result = mysqli_query($conn, $q);
 
-	echo "<tr>";
+	echo "<tr style='cursor: pointer; cursor: hand;'>";
 	while ($row = mysqli_fetch_assoc($result))
 	{
 		$str = $row['ID_znamka'];
@@ -323,7 +323,7 @@ if ($_POST['method'] == "get_menjave")
                     $sql_znamk = "SELECT * FROM Znamka WHERE ID_znamke='$id_znamke'";
                     $result3 = mysqli_query($conn, $sql_znamk);
                     $row3 = mysqli_fetch_assoc($result3);
-                    echo "<tr class='od_z' id='$other_user'>";
+                    echo "<tr class='od_z' id='$other_user' style='cursor: pointer; cursor: hand;'>";
                     $str = "";
                     $str .= "<td><img style='box-shadow: 0px 0px 10px black;width:60px;height:60px;' src='". $row3['slika'] . "'/></td>";
                     $str .= "<td><span style='padding-left:25px;'><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row2["fname"] . "</span><br>";
@@ -342,7 +342,7 @@ if ($_POST['method'] == "get_menjave")
                     $sql_znamk = "SELECT * FROM Znamka WHERE ID_znamke='$id_znamke'";
                     $result3 = mysqli_query($conn, $sql_znamk);
                     $row3 = mysqli_fetch_assoc($result3);
-                    echo "<tr class='od_z' id='$other_user'>";
+                    echo "<tr class='od_z' id='$other_user' cursor: pointer; cursor: hand;>";
                     $str = "";
                     $str .= "<td><img style='box-shadow: 0px 0px 10px black;width:60px;height:60px;' src='". $row3['slika'] . "'/></td>";
                     $str .= "<td><span style='padding-left:25px;'><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row2["fname"] . "</span><br>";

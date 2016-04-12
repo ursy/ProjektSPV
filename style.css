@@ -266,6 +266,8 @@ input:focus
 	text-align:center;
 	width:320px; 
 	height:50px;
+	cursor: pointer; 
+	cursor: hand;
 }
 
 .btn:hover 
@@ -321,6 +323,8 @@ input:focus
 	text-align:center;
 	width:320px; 
 	height:50px;
+	cursor: pointer; 
+	cursor: hand;
 }
 
 .btn2:hover 
