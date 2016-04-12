@@ -145,7 +145,7 @@
 		<!--<button type="button" class="btn3" id="editProfileButton">Uredi</button>-->
 		<table style='margin-left:40px; margin-right:40px; width:720px;' id="user_podatki">
 		</table>
-        <div id="menjave_znamke" style="margin-top:20px; margin-left:20px;">
+        <div id="menjave_znamke" style="margin-top:-50px; margin-left:303px; margin-right:90px;">
             <table id="menjave"></table>
         </div>
 		<div id="ima_z_uporabnik" style="margin-top:-50px; margin-left:303px; margin-right:90px;">

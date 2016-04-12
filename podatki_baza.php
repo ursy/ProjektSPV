@@ -325,9 +325,9 @@ if ($_POST['method'] == "get_menjave")
                     $row3 = mysqli_fetch_assoc($result3);
                     echo "<tr class='od_z' id='$other_user'>";
                     $str = "";
-                    $str .= "<td><img style='width:80px; height:80px;' src='". $row3['slika'] . "'/></td>";
-                    $str .= "<td><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row2["fname"] . "</span><br>";
-                    $str .= "<td><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row["chat_status"] . "</span><br>";
+                    $str .= "<td><img style='box-shadow: 0px 0px 10px black;width:60px;height:60px;' src='". $row3['slika'] . "'/></td>";
+                    $str .= "<td><span style='padding-left:25px;'><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row2["fname"] . "</span><br>";
+                    $str .= "<td><span style='padding-left:25px;'><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row["chat_status"] . "</span><br>";
                     $str .= "</td>";
                      echo ($str);
                     echo "</tr>";
@@ -344,9 +344,9 @@ if ($_POST['method'] == "get_menjave")
                     $row3 = mysqli_fetch_assoc($result3);
                     echo "<tr class='od_z' id='$other_user'>";
                     $str = "";
-                    $str .= "<td><img style='width:80px; height:80px;' src='". $row3['slika'] . "'/></td>";
-                    $str .= "<td><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row2["fname"] . "</span><br>";
-                    $str .= "<td><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row["chat_status"] . "</span><br>";
+                    $str .= "<td><img style='box-shadow: 0px 0px 10px black;width:60px;height:60px;' src='". $row3['slika'] . "'/></td>";
+                    $str .= "<td><span style='padding-left:25px;'><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row2["fname"] . "</span><br>";
+                    $str .= "<td><span style='padding-left:25px;'><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row["chat_status"] . "</span><br>";
                     $str .= "</td>";
                      echo ($str);
                     echo "</tr>";

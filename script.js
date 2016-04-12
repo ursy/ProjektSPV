@@ -130,7 +130,7 @@ $(document).on("mousedown", "#prekliciMenjavoB", function() {
 
 //ogled uporabnikovih znamk
 $(document).on("mousedown", "#moje_znamke_btn", function() {
-	
+	$("#menjave").hide();
 	var ima_znamke_id = userID;
 	
 	if ($("#ima_znamka").is(":visible") == false) {
@@ -167,6 +167,7 @@ $(document).on("mousedown", "#moje_znamke_btn", function() {
 //ogled uporabnikovih chatov
 $(document).on("mousedown", "#moje_menjave_btn", function() {
     if ($("#menjave").is(":visible") == false) {
+        $("#ima_znamka").hide();
 		menjave();
 	}
 	else {
