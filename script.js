@@ -68,15 +68,6 @@ $(document).on("mousedown", "#backButton1", function() {
 	$('#znamka_profil').show();
 });
 
-//back button - zamenjava znamk v uporabniskem profilu
-$(document).on("mousedown", "#backButton1", function() {
-	$('#znamka_zamenjava').hide();
-	$('#znamka_profil').hide();
-	$('#user_podatki').show();
-	$('#menjave').hide();
-	$('ima_znamka').hide();
-});
-
 //zacni menjavo clicked
 $(document).on("mousedown", "#ponudiButton", function() {
 	$('#znamka_profil').hide();
