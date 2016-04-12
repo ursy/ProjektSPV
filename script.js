@@ -32,9 +32,9 @@ $(document).ready(function() {
 });
 
 //prikaz podatkov o posamezni znamki
-$(document).on("mousedown", "tr.od_z", function() {
+$(document).on("mousedown", "tr.chat_uporabnik", function() {
 	var id = $(this).attr("id");
-	odpri_chat(userID, id, "", "");
+	odpri_chat(userID, id, "", 0);
 });
 
 $(document).on("mouseover", "td.znamke_prikaz", function() {

@@ -308,7 +308,7 @@ if ($_POST['method'] == "get_menjave")
         echo $id;
         $q = "SELECT * FROM Chat WHERE ID_User1 = '$id' OR ID_User2 = '$id'";
         $result = mysqli_query($conn, $q);
-         echo "<tr id='$id' class='od_z'>";
+         echo "<tr id='$id' class='chat_uporabnik'>";
         echo "<td colspan='3'><span style='font-family: comforta;font-size:20px; color: #119091; vertical-align:text-top;'>Zgodovina menjav</span></td>";
         echo "</tr>";
         while ($row = mysqli_fetch_assoc($result))
@@ -323,7 +323,7 @@ if ($_POST['method'] == "get_menjave")
                     $sql_znamk = "SELECT * FROM Znamka WHERE ID_znamke='$id_znamke'";
                     $result3 = mysqli_query($conn, $sql_znamk);
                     $row3 = mysqli_fetch_assoc($result3);
-                    echo "<tr class='od_z' id='$other_user'>";
+                    echo "<tr class='chat_uporabnik' id='$other_user'>";
                     $str = "";
                     $str .= "<td style='cursor: pointer; cursor: hand;'><img style='box-shadow: 0px 0px 10px black;width:60px;height:60px;' src='". $row3['slika'] . "'/></td>";
                     $str .= "<td style='cursor: pointer; cursor: hand;'><span style='padding-left:25px;'><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row2["fname"] . "</span><br>";
@@ -342,7 +342,7 @@ if ($_POST['method'] == "get_menjave")
                     $sql_znamk = "SELECT * FROM Znamka WHERE ID_znamke='$id_znamke'";
                     $result3 = mysqli_query($conn, $sql_znamk);
                     $row3 = mysqli_fetch_assoc($result3);
-                    echo "<tr class='od_z' id='$other_user'>";
+                    echo "<tr class='chat_uporabnik' id='$other_user'>";
                     $str = "";
                     $str .= "<td style='cursor: pointer; cursor: hand;'><img style='box-shadow: 0px 0px 10px black;width:60px;height:60px;' src='". $row3['slika'] . "'/></td>";
                     $str .= "<td style='cursor: pointer; cursor: hand;'><span style='padding-left:25px;'><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row2["fname"] . "</span><br>";
