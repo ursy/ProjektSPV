@@ -34,9 +34,7 @@ $(document).ready(function() {
 //prikaz podatkov o posamezni znamki
 $(document).on("mousedown", "tr.od_z", function() {
 	var id = $(this).attr("id");
-	var other_id = userID;
-	//alert(id);
-	//alert(other_id);
+	odpri_chat(userID, id, "", "");
 });
 
 $(document).on("mouseover", "td.znamke_prikaz", function() {
@@ -68,6 +66,15 @@ $(document).on("mousedown", "#backButton1", function() {
 	$("#potrdiMenjavoB").show();
 	$("#prekliciMenjavoB").show();
 	$('#znamka_profil').show();
+});
+
+//back button - zamenjava znamk v uporabniskem profilu
+$(document).on("mousedown", "#backButton1", function() {
+	$('#znamka_zamenjava').hide();
+	$('#znamka_profil').hide();
+	$('#user_podatki').show();
+	$('#menjave').hide();
+	$('ima_znamka').hide();
 });
 
 //zacni menjavo clicked

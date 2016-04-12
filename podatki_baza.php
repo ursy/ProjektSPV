@@ -572,5 +572,4 @@ if ($_POST['method'] == "potrdi_menjavo")
 	}
 }
 
-
 ?>
