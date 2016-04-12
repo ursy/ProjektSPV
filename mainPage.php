@@ -106,13 +106,12 @@
 
 	<!--prijava-->
 	<div id="prijava_tabcontent" class="tabContent">
-		<div style="box-shadow: -5px 5px 5px -5px #333, 5px 5px 5px -5px #333;border-radius: 5px;margin-bottom:70px; margin-top:70px; margin-left:200px; width:400px; height:500px; background-color: #333;">
+		<div style="box-shadow: -5px 5px 5px -5px #333, 5px 5px 5px -5px #333;border-radius: 5px;margin-bottom:70px; margin-top:70px; margin-left:200px; width:400px; height:430px; background-color: #333;">
 			<h1>PRIJAVA</h1>
-            <input type="text" placeholder="Uporabniško ime*" style="font-family: comforta;margin-left:37px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" />
-            <input type="password" placeholder="Geslo*" style="font-family: comforta;margin-top:25px;margin-left:37px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" />
+            <input id="userName" type="text" placeholder="Uporabniško ime*" style="font-family: comforta;margin-left:37px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" />
+            <input id="userPass" type="password" placeholder="Geslo*" style="font-family: comforta;margin-top:25px;margin-left:37px;text-align:center;padding:10px;width:300px; height:20px;font-size:18px;border:1px solid #3DD9C9; background-color:#333; color: #d9d9d9" />
             <button type="button" class="btn">PRIJAVA</button>
             <h3>ali: </h3>
-            <button type="button" class="btn1">Google</button>
             <?php echo '<a href="' . $loginUrl . '"><button type="button" class="btn2" >Facebook</button></a>';?>
 		</div>
 	</div>
@@ -149,7 +148,9 @@
         <div id="menjave_znamke" style="margin-top:20px; margin-left:20px;">
             <table id="menjave"></table>
         </div>
-
+		<div id="ima_z_uporabnik" style="margin-top:-50px; margin-left:303px; margin-right:90px;">
+			<table id="ima_znamka"></table>
+		</div>
 	</div>
 
 	<!--urejanje uporabnikovega profila-->

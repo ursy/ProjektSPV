@@ -23,6 +23,7 @@ function prikazi(elementi) {
 //prikaz znamk ko spremenis izbrano leto
 $(document).ready(function() {
     $("#menjave").hide();
+	$("#ima_znamka").hide();
 	get_znamke($('select').val());
     $('select').change(function(){
         var val = $(this).val();
@@ -129,7 +130,38 @@ $(document).on("mousedown", "#prekliciMenjavoB", function() {
 
 //ogled uporabnikovih znamk
 $(document).on("mousedown", "#moje_znamke_btn", function() {
-		
+	
+	var ima_znamke_id = userID;
+	
+	if ($("#ima_znamka").is(":visible") == false) {
+		$('#ima_znamka').html("");
+		$.ajax({
+			type: "POST",
+			url: "podatki_baza.php",
+			data:
+			{
+				id: ima_znamke_id,
+				method: "ima_znamka"
+			},
+			cache: false,
+			success: function (result)
+			{
+				if (result != "") 
+				{
+					$("#ima_znamka").html(result);
+					$("#ima_znamka").show();
+				}
+			},
+			error: function (result)
+			{
+				console.log(result);
+			}
+		});
+	}
+	
+	else {
+		$("#ima_znamka").hide();
+	}
 });
 
 //ogled uporabnikovih chatov

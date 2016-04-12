@@ -4,6 +4,36 @@ ini_set('display_errors', 'On');
 include_once 'connToDatabase.php';
 session_start();
 
+//prikaz znamke v uporabniskem profilu
+if ($_POST['method'] == "ima_znamka")
+{
+	$id_ima = $_POST['id'];
+
+	$q = "SELECT distinct ID_znamka FROM znamka_uporabnik WHERE ima=1 AND ID_uporabnik = ".$id_ima."";
+
+	$result = mysqli_query($conn, $q);
+
+	echo "<tr>";
+	while ($row = mysqli_fetch_assoc($result))
+	{
+		$str = $row['ID_znamka'];
+		
+		$q1 = "SELECT ID_znamke, slika, naslov FROM Znamka WHERE ID_znamke = ".$str."";
+
+		$result1 = mysqli_query($conn, $q1);
+		
+		echo "<tr>";
+		
+		while ($row1 = mysqli_fetch_assoc($result1))
+		{
+			echo "<td ID='" .$row1["ID_znamke"]. "'><img style='box-shadow: 0px 0px 10px black;width:60px;height:60px;' src='". $row1['slika'] . "'/></td><td ID='" .$row1["ID_znamke"]. "' style='padding-left:25px;'><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row1["naslov"] . "</span></td>";
+		}
+		
+		echo "</tr>";
+	}
+	echo "</tr>";
+}
+
 //vstavljanje nove znamke
 if ($_POST['method'] == "vstavi_znamko")
 {
@@ -145,8 +175,8 @@ if ($_POST['method'] == "prikaz_znamke")
 			echo "<tr>";
 		}
 
-		echo "<td class='znamke_prikaz' ID='" . $row["ID_znamke"] . "'><img width='90' height='130' src='". $row['slika'] . "'/></td><br>
-		<td class='znamke_prikaz' ID='" . $row["ID_znamke"] . "' style='background-color: #FBFBFB;'><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row["naslov"] . "</span><br><br><br><br>
+		echo "<td style='cursor: pointer; cursor: hand;' class='znamke_prikaz' ID='" . $row["ID_znamke"] . "'><img width='90' height='130' src='". $row['slika'] . "'/></td><br>
+		<td style='cursor: pointer; cursor: hand;' class='znamke_prikaz' ID='" . $row["ID_znamke"] . "' style='background-color: #FBFBFB;'><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row["naslov"] . "</span><br><br><br><br>
 		<span style='font-family:comforta;font-size:14px;color: #A58600;'>".$row["datum_izdaje"]."</span>
 		</td>";
 
