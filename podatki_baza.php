@@ -276,7 +276,7 @@ if ($_POST['method'] == "get_menjave")
    if(isset($_SESSION['user_id'])){
         $id = $_SESSION['user_id'];
         echo $id;
-        $q = "SELECT * FROM Chat WHERE ID_User1 = '$id' OR ID_User2 = '$id' GROUP BY ID_znamka";
+        $q = "SELECT * FROM Chat WHERE ID_User1 = '$id' OR ID_User2 = '$id'";
         $result = mysqli_query($conn, $q);
          echo "<tr id='$id' class='od_z'>";
         echo "<td colspan='3'><span style='font-family: comforta;font-size:20px; color: #119091; vertical-align:text-top;'>Zgodovina menjav</span></td>";
@@ -322,14 +322,6 @@ if ($_POST['method'] == "get_menjave")
                     echo "</tr>";
                 }
             }
-            /*$id_chat = $row['ID_Chat'];
-            $sql = "SELECT * FROM chatContent WHERE ID_chat='$id_chat'";
-            $result2 = mysqli_query($conn, $sql);
-            while ($row2 = mysqli_fetch_assoc($result2))
-            {
-                $str = "";
-                $str .=
-            }*/
         }
 
     }
