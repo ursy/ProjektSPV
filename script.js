@@ -31,6 +31,14 @@ $(document).ready(function() {
     });
 });
 
+//prikaz podatkov o posamezni znamki
+$(document).on("mousedown", "tr.od_z", function() {
+	var id = $(this).attr("id");
+	var other_id = userID;
+	//alert(id);
+	//alert(other_id);
+});
+
 $(document).on("mouseover", "td.znamke_prikaz", function() {
     $(this).css('background-color', '#cdb7b5');
 });
@@ -134,7 +142,6 @@ $(document).on("mousedown", "#moje_znamke_btn", function() {
 	var ima_znamke_id = userID;
 	
 	if ($("#ima_znamka").is(":visible") == false) {
-		$('#ima_znamka').html("");
 		$.ajax({
 			type: "POST",
 			url: "podatki_baza.php",
