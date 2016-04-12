@@ -13,7 +13,7 @@ if ($_POST['method'] == "ima_znamka")
 
 	$result = mysqli_query($conn, $q);
 
-	echo "<tr style='cursor: pointer; cursor: hand;'>";
+	echo "<tr>";
 	while ($row = mysqli_fetch_assoc($result))
 	{
 		$str = $row['ID_znamka'];
@@ -26,7 +26,7 @@ if ($_POST['method'] == "ima_znamka")
 		
 		while ($row1 = mysqli_fetch_assoc($result1))
 		{
-			echo "<td ID='" .$row1["ID_znamke"]. "'><img style='box-shadow: 0px 0px 10px black;width:60px;height:60px;' src='". $row1['slika'] . "'/></td><td ID='" .$row1["ID_znamke"]. "' style='padding-left:25px;'><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row1["naslov"] . "</span></td>";
+			echo "<td style='cursor: pointer; cursor: hand;' ID='" .$row1["ID_znamke"]. "'><img style='box-shadow: 0px 0px 10px black;width:60px;height:60px;' src='". $row1['slika'] . "'/></td><td ID='" .$row1["ID_znamke"]. "' style='cursor: pointer; cursor: hand;padding-left:25px;'><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row1["naslov"] . "</span></td>";
 		}
 		
 		echo "</tr>";
@@ -323,11 +323,11 @@ if ($_POST['method'] == "get_menjave")
                     $sql_znamk = "SELECT * FROM Znamka WHERE ID_znamke='$id_znamke'";
                     $result3 = mysqli_query($conn, $sql_znamk);
                     $row3 = mysqli_fetch_assoc($result3);
-                    echo "<tr class='od_z' id='$other_user' style='cursor: pointer; cursor: hand;'>";
+                    echo "<tr class='od_z' id='$other_user'>";
                     $str = "";
-                    $str .= "<td><img style='box-shadow: 0px 0px 10px black;width:60px;height:60px;' src='". $row3['slika'] . "'/></td>";
-                    $str .= "<td><span style='padding-left:25px;'><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row2["fname"] . "</span><br>";
-                    $str .= "<td><span style='padding-left:25px;'><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row["chat_status"] . "</span><br>";
+                    $str .= "<td style='cursor: pointer; cursor: hand;'><img style='box-shadow: 0px 0px 10px black;width:60px;height:60px;' src='". $row3['slika'] . "'/></td>";
+                    $str .= "<td style='cursor: pointer; cursor: hand;'><span style='padding-left:25px;'><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row2["fname"] . "</span><br>";
+                    $str .= "<td style='cursor: pointer; cursor: hand;'><span style='padding-left:25px;'><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row["chat_status"] . "</span><br>";
                     $str .= "</td>";
                      echo ($str);
                     echo "</tr>";
@@ -342,11 +342,11 @@ if ($_POST['method'] == "get_menjave")
                     $sql_znamk = "SELECT * FROM Znamka WHERE ID_znamke='$id_znamke'";
                     $result3 = mysqli_query($conn, $sql_znamk);
                     $row3 = mysqli_fetch_assoc($result3);
-                    echo "<tr class='od_z' id='$other_user' cursor: pointer; cursor: hand;>";
+                    echo "<tr class='od_z' id='$other_user'>";
                     $str = "";
-                    $str .= "<td><img style='box-shadow: 0px 0px 10px black;width:60px;height:60px;' src='". $row3['slika'] . "'/></td>";
-                    $str .= "<td><span style='padding-left:25px;'><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row2["fname"] . "</span><br>";
-                    $str .= "<td><span style='padding-left:25px;'><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row["chat_status"] . "</span><br>";
+                    $str .= "<td style='cursor: pointer; cursor: hand;'><img style='box-shadow: 0px 0px 10px black;width:60px;height:60px;' src='". $row3['slika'] . "'/></td>";
+                    $str .= "<td style='cursor: pointer; cursor: hand;'><span style='padding-left:25px;'><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row2["fname"] . "</span><br>";
+                    $str .= "<td style='cursor: pointer; cursor: hand;'><span style='padding-left:25px;'><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row["chat_status"] . "</span><br>";
                     $str .= "</td>";
                      echo ($str);
                     echo "</tr>";
