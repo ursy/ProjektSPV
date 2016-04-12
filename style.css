@@ -86,11 +86,6 @@ li a:hover:not(.active)
     background: #676565;
 }
 
-table
-{
-    cursor: hand;
-}
-
 select 
 {
     width: 15%;
@@ -307,7 +302,7 @@ input:focus
 	padding: 10px 20px 10px 20px;
 	border: solid #3b5998 1px;
 	text-decoration: none;
-	margin-top:20px;
+	margin-top:-10px;
 	margin-left:37px;
 	text-align:center;
 	width:320px; 
@@ -426,16 +421,6 @@ input:focus
 	border-radius: 5px;
 	padding: 5px;
 	text-align: center;
-}
-
-#menjave{
-    border:1px solid #119091;
-	border-radius: 5px;
-	padding: 5px;
-	text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 20px;
 }
 
 #moje_menjave_btn, #moje_znamke_btn {

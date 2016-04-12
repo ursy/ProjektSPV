@@ -129,7 +129,38 @@ $(document).on("mousedown", "#prekliciMenjavoB", function() {
 
 //ogled uporabnikovih znamk
 $(document).on("mousedown", "#moje_znamke_btn", function() {
-		
+	
+	var ima_znamke_id = userID;
+	$('#ima_znamka').html("");
+	
+	if ($("#ima_znamka").is(":visible") == false) {
+		$.ajax({
+			type: "POST",
+			url: "podatki_baza.php",
+			data:
+			{
+				id: ima_znamke_id,
+				method: "ima_znamka"
+			},
+			cache: false,
+			success: function (result)
+			{
+				if (result != "") 
+				{
+					$("#ima_znamka").html(result);
+					$("#ima_znamka").show();
+				}
+			},
+			error: function (result)
+			{
+				console.log(result);
+			}
+		});
+	}
+	
+	else {
+		$("#ima_znamka").hide();
+	}
 });
 
 //ogled uporabnikovih chatov

@@ -4,6 +4,34 @@ ini_set('display_errors', 'On');
 include_once 'connToDatabase.php';
 session_start();
 
+//prikaz znamke v uporabniskem profilu
+if ($_POST['method'] == "ima_znamka")
+{
+	$id_ima = $_POST['id'];
+
+	$q = "SELECT ID_znamka FROM znamka_uporabnik WHERE ima=1 AND ID_uporabnik = ".$id_ima."";
+
+	$result = mysqli_query($conn, $q);
+
+	while ($row = mysqli_fetch_assoc($result))
+	{
+		$str = $row['ID_znamka'];
+		
+		$q1 = "SELECT ID_znamke, slika, naslov FROM Znamka WHERE ID_znamke = ".$str."";
+
+		$result1 = mysqli_query($conn, $q1);
+		
+		echo "<tr>";
+		
+		while ($row1 = mysqli_fetch_assoc($result1))
+		{
+			echo "<td><img style='box-shadow: 0px 0px 10px black;width:50px;height:50px;' src='". $row1['slika'] . "'/></td><td ID='" .$row1["ID_znamke"]. "' style='background-color: #FBFBFB;'><span style='margin-left:10px;font-family: comforta;font-size:14px; color: #333;'>" . $row1["naslov"] . "</span></td>";
+		}
+		
+		echo "</tr>";
+	}
+}
+
 //vstavljanje nove znamke
 if ($_POST['method'] == "vstavi_znamko")
 {
