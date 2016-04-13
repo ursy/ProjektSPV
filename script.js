@@ -32,8 +32,16 @@ $(document).ready(function() {
 });
 
 //prikaz podatkov o posamezni znamki
+$(document).on("mousedown", "td.z_ima_u", function() {
+	var id = $(this).attr("ID");
+	$('#uporabnik_tabcontent').hide();
+	znamka_podatki(id, "");
+	$("#odvec").hide();
+});
+
+//prikaz podatkov o posamezni znamki
 $(document).on("mousedown", "tr.chat_uporabnik", function() {
-	var id = $(this).attr("id");
+	var id = $(this).attr('id');
 	odpri_chat(userID, id, "", 0);
 });
 

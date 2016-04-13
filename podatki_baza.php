@@ -26,7 +26,7 @@ if ($_POST['method'] == "ima_znamka")
 		
 		while ($row1 = mysqli_fetch_assoc($result1))
 		{
-			echo "<td style='cursor: pointer; cursor: hand;' ID='" .$row1["ID_znamke"]. "'><img style='box-shadow: 0px 0px 10px black;width:60px;height:60px;' src='". $row1['slika'] . "'/></td><td ID='" .$row1["ID_znamke"]. "' style='cursor: pointer; cursor: hand;padding-left:25px;'><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row1["naslov"] . "</span></td>";
+			echo "<td style='cursor: pointer; cursor: hand;' ID='" .$row1["ID_znamke"]. "' class='z_ima_u'><img style='box-shadow: 0px 0px 10px black;width:60px;height:60px;' src='". $row1['slika'] . "'/></td><td class='z_ima_u' ID='" .$row1["ID_znamke"]. "' style='cursor: pointer; cursor: hand;padding-left:25px;'><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row1["naslov"] . "</span></td>";
 		}
 		
 		echo "</tr>";
