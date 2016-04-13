@@ -43,7 +43,7 @@ $(document).on("mousedown", "td.z_ima_u", function() {
 $(document).on("mousedown", "tr.chat_uporabnik", function() {
 	var id = $(this).attr('id');
 	var id_znamka = $('td.z').attr('ID');
-	alert(id_znamka);
+	//alert(id_znamka);
 	odpri_chat(userID, id, id_znamka, 0);
 });
 
