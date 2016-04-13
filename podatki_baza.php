@@ -325,9 +325,9 @@ if ($_POST['method'] == "get_menjave")
                     $row3 = mysqli_fetch_assoc($result3);
                     echo "<tr class='chat_uporabnik' id='$other_user'>";
                     $str = "";
-                    $str .= "<td style='cursor: pointer; cursor: hand;'><img style='box-shadow: 0px 0px 10px black;width:60px;height:60px;' src='". $row3['slika'] . "'/></td>";
-                    $str .= "<td style='cursor: pointer; cursor: hand;'><span style='padding-left:25px;'><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row2["fname"] . "</span><br>";
-                    $str .= "<td style='cursor: pointer; cursor: hand;'><span style='padding-left:25px;'><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row["chat_status"] . "</span><br>";
+                    $str .= "<td class='z' ID='".$row3['ID_znamke']."' style='cursor: pointer; cursor: hand;'><img style='box-shadow: 0px 0px 10px black;width:60px;height:60px;' src='". $row3['slika'] . "'/></td>";
+                    $str .= "<td class='z' ID='".$row3['ID_znamke']."' style='cursor: pointer; cursor: hand;'><span style='padding-left:25px;'><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row2["fname"] . "</span><br>";
+                    $str .= "<td class='z' ID='".$row3['ID_znamke']."' style='cursor: pointer; cursor: hand;'><span style='padding-left:25px;'><span style='font-family: comforta;font-size:14px; color: #333;'>" . $row["chat_status"] . "</span><br>";
                     $str .= "</td>";
                      echo ($str);
                     echo "</tr>";
